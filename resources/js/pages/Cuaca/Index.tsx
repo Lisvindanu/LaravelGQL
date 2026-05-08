@@ -259,7 +259,7 @@ export default function CuacaIndex({
                                     <p className="mt-2 text-4xl leading-none">
                                         {weatherEmoji(now.cuaca)}
                                     </p>
-                                    <p className="mt-2 font-display text-3xl font-bold leading-none">
+                                    <p className="mt-2 font-display text-3xl leading-none font-bold">
                                         {now.suhu}
                                     </p>
                                     <p className="mt-1 line-clamp-2 text-xs text-white/70">

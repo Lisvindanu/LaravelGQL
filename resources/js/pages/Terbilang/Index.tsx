@@ -85,7 +85,7 @@ export default function TerbilangIndex({ angka, result }: Props) {
                             <p className="text-xs text-neutral-400 dark:text-zinc-500">
                                 Angka
                             </p>
-                            <p className="mt-1 font-display text-4xl font-bold tabular-nums text-neutral-900 dark:text-white">
+                            <p className="mt-1 font-display text-4xl font-bold text-neutral-900 tabular-nums dark:text-white">
                                 {formatRupiah(result.angka)}
                             </p>
 
@@ -93,7 +93,7 @@ export default function TerbilangIndex({ angka, result }: Props) {
                                 <p className="text-xs text-neutral-400 dark:text-zinc-500">
                                     Terbilang
                                 </p>
-                                <p className="mt-2 font-display text-2xl font-bold capitalize leading-relaxed text-neutral-900 dark:text-white">
+                                <p className="mt-2 font-display text-2xl leading-relaxed font-bold text-neutral-900 capitalize dark:text-white">
                                     {result.terbilang}
                                 </p>
                             </div>

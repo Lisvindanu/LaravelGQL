@@ -9,36 +9,57 @@ interface Props {
 }
 
 const BULAN = [
-    'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
-    'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember',
+    'Januari',
+    'Februari',
+    'Maret',
+    'April',
+    'Mei',
+    'Juni',
+    'Juli',
+    'Agustus',
+    'September',
+    'Oktober',
+    'November',
+    'Desember',
 ];
 
 const tahunOptions = Array.from({ length: 5 }, (_, i) => 2024 + i);
 
 const getDayName = (iso: string) => {
     const [y, m, d] = iso.split('-').map(Number);
-    return new Date(y, m - 1, d).toLocaleDateString('id-ID', { weekday: 'short' });
+    return new Date(y, m - 1, d).toLocaleDateString('id-ID', {
+        weekday: 'short',
+    });
 };
 
 const getDay = (iso: string) => iso.slice(8, 10);
 
-export default function HariLiburIndex({ hariLibur, selectedTahun, selectedBulan }: Props) {
+export default function HariLiburIndex({
+    hariLibur,
+    selectedTahun,
+    selectedBulan,
+}: Props) {
     const handleFilter = (tahun: number, bulan: number | null) => {
         const params: Record<string, string | number> = { tahun };
         if (bulan !== null) params.bulan = bulan;
         router.get('/hari-libur', params);
     };
 
-    const nasionalCount = hariLibur.filter((h) => h.jenis === 'nasional').length;
+    const nasionalCount = hariLibur.filter(
+        (h) => h.jenis === 'nasional',
+    ).length;
     const cutiCount = hariLibur.filter((h) => h.jenis !== 'nasional').length;
 
     // Group by month
-    const grouped = hariLibur.reduce<Record<string, HariLiburItem[]>>((acc, item) => {
-        const key = item.tanggal.slice(0, 7);
-        if (!acc[key]) acc[key] = [];
-        acc[key].push(item);
-        return acc;
-    }, {});
+    const grouped = hariLibur.reduce<Record<string, HariLiburItem[]>>(
+        (acc, item) => {
+            const key = item.tanggal.slice(0, 7);
+            if (!acc[key]) acc[key] = [];
+            acc[key].push(item);
+            return acc;
+        },
+        {},
+    );
 
     const monthLabel = (ym: string) => {
         const [y, m] = ym.split('-').map(Number);
@@ -64,21 +85,32 @@ export default function HariLiburIndex({ hariLibur, selectedTahun, selectedBulan
             <div className="mb-6 flex flex-wrap items-center gap-3">
                 <select
                     value={selectedTahun}
-                    onChange={(e) => handleFilter(Number(e.target.value), selectedBulan)}
+                    onChange={(e) =>
+                        handleFilter(Number(e.target.value), selectedBulan)
+                    }
                     className="rounded-xl border border-neutral-200 bg-white px-4 py-2.5 text-sm shadow-sm transition-colors focus:border-rose-400 focus:ring-2 focus:ring-rose-100 focus:outline-none dark:border-zinc-700 dark:bg-zinc-800 dark:text-white"
                 >
                     {tahunOptions.map((t) => (
-                        <option key={t} value={t}>{t}</option>
+                        <option key={t} value={t}>
+                            {t}
+                        </option>
                     ))}
                 </select>
                 <select
                     value={selectedBulan ?? ''}
-                    onChange={(e) => handleFilter(selectedTahun, e.target.value ? Number(e.target.value) : null)}
+                    onChange={(e) =>
+                        handleFilter(
+                            selectedTahun,
+                            e.target.value ? Number(e.target.value) : null,
+                        )
+                    }
                     className="rounded-xl border border-neutral-200 bg-white px-4 py-2.5 text-sm shadow-sm transition-colors focus:border-rose-400 focus:ring-2 focus:ring-rose-100 focus:outline-none dark:border-zinc-700 dark:bg-zinc-800 dark:text-white"
                 >
                     <option value="">Semua Bulan</option>
                     {BULAN.map((nama, i) => (
-                        <option key={i + 1} value={i + 1}>{nama}</option>
+                        <option key={i + 1} value={i + 1}>
+                            {nama}
+                        </option>
                     ))}
                 </select>
 
@@ -119,7 +151,7 @@ export default function HariLiburIndex({ hariLibur, selectedTahun, selectedBulan
                                             className="flex items-center gap-4 px-5 py-4 transition-colors hover:bg-neutral-50/60 dark:hover:bg-zinc-800/30"
                                         >
                                             <div className="flex w-10 flex-none flex-col items-center">
-                                                <p className="font-display text-2xl font-bold leading-none text-neutral-900 dark:text-white">
+                                                <p className="font-display text-2xl leading-none font-bold text-neutral-900 dark:text-white">
                                                     {getDay(item.tanggal)}
                                                 </p>
                                                 <p className="mt-0.5 text-xs text-neutral-400 dark:text-zinc-500">
@@ -139,7 +171,9 @@ export default function HariLiburIndex({ hariLibur, selectedTahun, selectedBulan
                                                         : 'bg-blue-100 text-blue-700 dark:bg-blue-950/60 dark:text-blue-400',
                                                 ].join(' ')}
                                             >
-                                                {item.jenis === 'nasional' ? 'Libur' : 'Cuti'}
+                                                {item.jenis === 'nasional'
+                                                    ? 'Libur'
+                                                    : 'Cuti'}
                                             </span>
                                         </li>
                                     ))}

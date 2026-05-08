@@ -22,9 +22,11 @@ interface Props {
 }
 
 const TIPE_COLOR: Record<string, string> = {
-    kecamatan: 'bg-violet-100 text-violet-700 dark:bg-violet-950/40 dark:text-violet-400',
+    kecamatan:
+        'bg-violet-100 text-violet-700 dark:bg-violet-950/40 dark:text-violet-400',
     kota: 'bg-sky-100 text-sky-700 dark:bg-sky-950/40 dark:text-sky-400',
-    provinsi: 'bg-teal-100 text-teal-700 dark:bg-teal-950/40 dark:text-teal-400',
+    provinsi:
+        'bg-teal-100 text-teal-700 dark:bg-teal-950/40 dark:text-teal-400',
 };
 
 const weatherEmoji = (desc: string): string => {
@@ -129,7 +131,8 @@ export default function WilayahIndex({
     };
 
     const provinsiNama =
-        provinsiList.find((p) => p.kode === selectedProvinsi)?.nama ?? selectedProvinsi;
+        provinsiList.find((p) => p.kode === selectedProvinsi)?.nama ??
+        selectedProvinsi;
 
     const showHome = !selectedProvinsi && !selectedKota && !searchQuery;
     const showProvinsi = selectedProvinsi && !selectedKota;
@@ -232,21 +235,37 @@ export default function WilayahIndex({
                         onClick={handleBack}
                         className="flex items-center gap-1 rounded-lg bg-neutral-100 px-3 py-1.5 text-neutral-600 transition-colors hover:bg-teal-100 hover:text-teal-700 dark:bg-zinc-800 dark:text-zinc-400 dark:hover:bg-teal-950/40 dark:hover:text-teal-400"
                     >
-                        <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                        <svg
+                            className="h-4 w-4"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M15 19l-7-7 7-7"
+                            />
                         </svg>
                         Kembali
                     </button>
-                    <span className="text-neutral-300 dark:text-zinc-700">/</span>
+                    <span className="text-neutral-300 dark:text-zinc-700">
+                        /
+                    </span>
                     {showKota ? (
                         <>
                             <button
-                                onClick={() => handleProvinsiSelect(selectedProvinsi)}
+                                onClick={() =>
+                                    handleProvinsiSelect(selectedProvinsi)
+                                }
                                 className="text-neutral-500 hover:text-teal-600 dark:text-zinc-400 dark:hover:text-teal-400"
                             >
                                 {provinsiNama}
                             </button>
-                            <span className="text-neutral-300 dark:text-zinc-700">/</span>
+                            <span className="text-neutral-300 dark:text-zinc-700">
+                                /
+                            </span>
                             <span className="font-semibold text-neutral-900 dark:text-white">
                                 {kotaDetail?.nama}
                             </span>
@@ -295,7 +314,9 @@ export default function WilayahIndex({
                                 onClick={() => handleKotaSelect(k.kode)}
                                 className="rounded-xl border border-neutral-100 bg-neutral-50 px-3 py-3 text-left text-sm text-neutral-700 transition-colors hover:border-teal-200 hover:bg-teal-50 hover:text-teal-700 dark:border-zinc-800 dark:bg-zinc-800/50 dark:text-zinc-300 dark:hover:border-teal-800 dark:hover:bg-teal-950/20 dark:hover:text-teal-400"
                             >
-                                <span className="line-clamp-2 leading-snug">{k.nama}</span>
+                                <span className="line-clamp-2 leading-snug">
+                                    {k.nama}
+                                </span>
                             </button>
                         ))}
                     </div>
@@ -303,7 +324,12 @@ export default function WilayahIndex({
             )}
 
             {showKota && (
-                <div className={['grid gap-5', cuaca ? 'lg:grid-cols-[1fr_320px]' : ''].join(' ')}>
+                <div
+                    className={[
+                        'grid gap-5',
+                        cuaca ? 'lg:grid-cols-[1fr_320px]' : '',
+                    ].join(' ')}
+                >
                     <div className="rounded-2xl border border-neutral-200/60 bg-white p-5 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
                         <div className="mb-4 flex items-center gap-2">
                             <p className="text-xs font-semibold tracking-wider text-neutral-400 uppercase dark:text-zinc-500">
@@ -342,7 +368,10 @@ export default function WilayahIndex({
                                         <div className="min-w-0 flex-1">
                                             <div className="flex items-center justify-between">
                                                 <span className="text-xs text-neutral-400">
-                                                    {p.waktu.split('T')[1]?.slice(0, 5) ?? p.waktu}
+                                                    {p.waktu
+                                                        .split('T')[1]
+                                                        ?.slice(0, 5) ??
+                                                        p.waktu}
                                                 </span>
                                                 <span className="font-bold text-neutral-900 dark:text-white">
                                                     {p.suhu}
@@ -352,7 +381,8 @@ export default function WilayahIndex({
                                                 {p.cuaca}
                                             </p>
                                             <p className="text-xs text-neutral-400">
-                                                💧{p.kelembapan} · 💨{p.kecepatanAngin}
+                                                💧{p.kelembapan} · 💨
+                                                {p.kecepatanAngin}
                                             </p>
                                         </div>
                                     </div>

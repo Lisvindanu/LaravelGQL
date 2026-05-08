@@ -87,7 +87,7 @@ export default function KursIndex({ kurs }: Props) {
                         <p className="truncate text-xs text-neutral-400 dark:text-zinc-500">
                             {NAMA[item.mataUang] ?? item.mataUang}
                         </p>
-                        <p className="mt-1 font-display text-xl font-bold tabular-nums text-neutral-900 dark:text-white">
+                        <p className="mt-1 font-display text-xl font-bold text-neutral-900 tabular-nums dark:text-white">
                             {formatRupiah(item.kursTengah)}
                         </p>
                         <p className="text-xs text-neutral-400 dark:text-zinc-600">
@@ -98,7 +98,7 @@ export default function KursIndex({ kurs }: Props) {
                                 <p className="text-xs text-neutral-300 dark:text-zinc-600">
                                     Beli
                                 </p>
-                                <p className="tabular-nums text-xs font-medium text-neutral-500 dark:text-zinc-400">
+                                <p className="text-xs font-medium text-neutral-500 tabular-nums dark:text-zinc-400">
                                     {formatRupiah(item.kursBeli)}
                                 </p>
                             </div>
@@ -106,7 +106,7 @@ export default function KursIndex({ kurs }: Props) {
                                 <p className="text-xs text-neutral-300 dark:text-zinc-600">
                                     Jual
                                 </p>
-                                <p className="tabular-nums text-xs font-medium text-neutral-500 dark:text-zinc-400">
+                                <p className="text-xs font-medium text-neutral-500 tabular-nums dark:text-zinc-400">
                                     {formatRupiah(item.kursJual)}
                                 </p>
                             </div>

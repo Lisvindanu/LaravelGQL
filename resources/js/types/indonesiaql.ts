@@ -91,3 +91,25 @@ export interface TerbilangResult {
     angka: number;
     terbilang: string;
 }
+
+export interface KodeBankItem {
+    kode: string;
+    nama: string;
+}
+
+export interface PlatNomorResult {
+    kode: string;
+    wilayah: string;
+    provinsi: string;
+}
+
+export interface WaktuSholatResult {
+    kota: string;
+    tanggal: string;
+    subuh: string;
+    terbit: string;
+    dzuhur: string;
+    ashar: string;
+    maghrib: string;
+    isya: string;
+}

@@ -168,4 +168,34 @@ class IndonesiaQLService
             ['angka' => $angka]
         )['terbilang'] ?? null;
     }
+
+    public function getKodeBankList(): array
+    {
+        return Cache::rememberForever(
+            'kode_bank_list',
+            fn () => $this->gql('{ kodeBankList { kode nama } }')['kodeBankList'] ?? []
+        );
+    }
+
+    public function getPlatNomor(string $kode): ?array
+    {
+        return $this->gql(
+            'query PlatNomor($kode: String!) { platNomor(kode: $kode) { kode wilayah provinsi } }',
+            ['kode' => strtoupper(trim($kode))]
+        )['platNomor'] ?? null;
+    }
+
+    public function getWaktuSholat(string $kota): ?array
+    {
+        $cacheKey = 'waktu_sholat_'.str_replace(' ', '_', strtolower($kota)).'_'.date('Y-m-d');
+
+        return Cache::remember(
+            $cacheKey,
+            21600,
+            fn () => $this->gql(
+                'query WaktuSholat($kota: String!) { waktuSholat(kota: $kota) { kota tanggal subuh terbit dzuhur ashar maghrib isya } }',
+                ['kota' => $kota]
+            )['waktuSholat'] ?? null
+        );
+    }
 }

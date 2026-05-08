@@ -70,7 +70,8 @@ export default function KalenderJawaIndex({ tanggal, result }: Props) {
                                     {result.hari} {result.pasaran}
                                 </p>
                                 <p className="mt-2 text-amber-100">
-                                    Tahun {result.tahunJawa} · Windu {result.namaWindu}
+                                    Tahun {result.tahunJawa} · Windu{' '}
+                                    {result.namaWindu}
                                 </p>
                             </div>
 
@@ -79,9 +80,18 @@ export default function KalenderJawaIndex({ tanggal, result }: Props) {
                                     { label: 'Hari', value: result.hari },
                                     { label: 'Pasaran', value: result.pasaran },
                                     { label: 'Wuku', value: result.wuku },
-                                    { label: 'Tahun Jawa', value: String(result.tahunJawa) },
-                                    { label: 'Nama Windu', value: result.namaWindu },
-                                    { label: 'Tahun dalam Windu', value: String(result.tahunDalamWindu) },
+                                    {
+                                        label: 'Tahun Jawa',
+                                        value: String(result.tahunJawa),
+                                    },
+                                    {
+                                        label: 'Nama Windu',
+                                        value: result.namaWindu,
+                                    },
+                                    {
+                                        label: 'Tahun dalam Windu',
+                                        value: String(result.tahunDalamWindu),
+                                    },
                                 ].map(({ label, value: val }) => (
                                     <div
                                         key={label}
