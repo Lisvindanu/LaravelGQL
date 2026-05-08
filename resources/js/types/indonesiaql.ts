@@ -8,6 +8,23 @@ export interface Kota {
     nama: string;
 }
 
+export interface Kelurahan {
+    kode: string;
+    nama: string;
+    kodePos: string | null;
+}
+
+export interface Kecamatan {
+    kode: string;
+    nama: string;
+    kelurahan: Kelurahan[];
+}
+
+export interface KotaDetail {
+    nama: string;
+    kecamatan: Kecamatan[];
+}
+
 export interface ProvinsiDetail {
     nama: string;
     kota: Kota[];

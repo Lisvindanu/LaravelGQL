@@ -17,6 +17,19 @@ class WilayahController extends Controller
     {
         $searchQuery = $request->string('q')->toString();
         $provinsiKode = $request->string('provinsi')->toString();
+        $kotaKode = $request->string('kota')->toString();
+
+        $kotaDetail = null;
+        $cuaca = null;
+
+        if ($kotaKode) {
+            $kotaDetail = $this->service->getKota($kotaKode);
+            if ($kotaDetail) {
+                $provinsiFromKota = substr($kotaKode, 0, 2);
+                $kotaNama = strtolower(preg_replace('/^(kota|kabupaten)\s+/i', '', $kotaDetail['nama']));
+                $cuaca = $this->service->getCuaca($provinsiFromKota, $kotaNama);
+            }
+        }
 
         return Inertia::render('Wilayah/Index', [
             'provinsiList' => $this->service->getProvinsiList(),
@@ -24,6 +37,9 @@ class WilayahController extends Controller
             'searchResults' => $searchQuery ? $this->service->searchWilayah($searchQuery) : [],
             'provinsiDetail' => $provinsiKode ? $this->service->getProvinsi($provinsiKode) : null,
             'selectedProvinsi' => $provinsiKode,
+            'kotaDetail' => $kotaDetail,
+            'selectedKota' => $kotaKode,
+            'cuaca' => $cuaca,
         ]);
     }
 }

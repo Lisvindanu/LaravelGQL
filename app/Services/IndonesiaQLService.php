@@ -59,6 +59,17 @@ class IndonesiaQLService
         )['searchWilayah'] ?? [];
     }
 
+    public function getKota(string $kode): ?array
+    {
+        return Cache::rememberForever(
+            "kota_{$kode}",
+            fn () => $this->gql(
+                'query GetKota($kode: String!) { kota(kode: $kode) { nama kecamatan { kode nama kelurahan { kode nama kodePos } } } }',
+                ['kode' => $kode]
+            )['kota'] ?? null
+        );
+    }
+
     public function getCuaca(string $provinsiKode, string $kota): ?array
     {
         $cacheKey = 'cuaca_'.$provinsiKode.'_'.str_replace(' ', '_', strtolower($kota));
