@@ -50,7 +50,6 @@ export default function HariLiburIndex({
     ).length;
     const cutiCount = hariLibur.filter((h) => h.jenis !== 'nasional').length;
 
-    // Group by month
     const grouped = hariLibur.reduce<Record<string, HariLiburItem[]>>(
         (acc, item) => {
             const key = item.tanggal.slice(0, 7);
@@ -71,24 +70,21 @@ export default function HariLiburIndex({
             <Head title="Hari Libur Nasional" />
 
             <div className="mb-8">
-                <p className="mb-2 text-xs font-bold tracking-widest text-rose-600 uppercase dark:text-rose-400">
+                <p className="mb-2 text-[11px] font-bold tracking-[0.2em] text-red-600 uppercase">
                     Indonesia · {selectedTahun}
                 </p>
-                <h1 className="font-display text-4xl font-bold tracking-tight text-neutral-900 dark:text-white">
+                <h1 className="font-display text-4xl font-black tracking-tight text-neutral-900 dark:text-white">
                     Hari Libur Nasional
                 </h1>
-                <p className="mt-2 text-neutral-500 dark:text-zinc-400">
-                    Hari libur dan cuti bersama Indonesia
-                </p>
             </div>
 
-            <div className="mb-6 flex flex-wrap items-center gap-3">
+            <div className="mb-6 flex flex-wrap items-center gap-3 border-b border-neutral-100 pb-6 dark:border-zinc-800">
                 <select
                     value={selectedTahun}
                     onChange={(e) =>
                         handleFilter(Number(e.target.value), selectedBulan)
                     }
-                    className="rounded-xl border border-neutral-200 bg-white px-4 py-2.5 text-sm shadow-sm transition-colors focus:border-rose-400 focus:ring-2 focus:ring-rose-100 focus:outline-none dark:border-zinc-700 dark:bg-zinc-800 dark:text-white"
+                    className="border-b border-neutral-300 bg-transparent py-1.5 pr-6 text-sm text-neutral-900 focus:border-red-600 focus:outline-none dark:border-zinc-700 dark:text-white"
                 >
                     {tahunOptions.map((t) => (
                         <option key={t} value={t}>
@@ -104,7 +100,7 @@ export default function HariLiburIndex({
                             e.target.value ? Number(e.target.value) : null,
                         )
                     }
-                    className="rounded-xl border border-neutral-200 bg-white px-4 py-2.5 text-sm shadow-sm transition-colors focus:border-rose-400 focus:ring-2 focus:ring-rose-100 focus:outline-none dark:border-zinc-700 dark:bg-zinc-800 dark:text-white"
+                    className="border-b border-neutral-300 bg-transparent py-1.5 pr-6 text-sm text-neutral-900 focus:border-red-600 focus:outline-none dark:border-zinc-700 dark:text-white"
                 >
                     <option value="">Semua Bulan</option>
                     {BULAN.map((nama, i) => (
@@ -115,80 +111,79 @@ export default function HariLiburIndex({
                 </select>
 
                 {hariLibur.length > 0 && (
-                    <div className="ml-auto flex items-center gap-2">
-                        <span className="inline-flex items-center gap-1.5 rounded-full bg-rose-600 px-3 py-1 text-xs font-medium text-white">
-                            <span className="h-1.5 w-1.5 rounded-full bg-rose-200" />
-                            {nasionalCount} libur
+                    <div className="ml-auto flex items-center gap-4 text-sm">
+                        <span className="font-mono font-black text-neutral-900 dark:text-white">
+                            {nasionalCount}
+                        </span>
+                        <span className="text-neutral-400 dark:text-zinc-500">
+                            libur nasional
                         </span>
                         {cutiCount > 0 && (
-                            <span className="inline-flex items-center gap-1.5 rounded-full border border-neutral-200 bg-white px-3 py-1 text-xs font-medium text-neutral-600 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-300">
-                                <span className="h-1.5 w-1.5 rounded-full bg-blue-400" />
-                                {cutiCount} cuti
-                            </span>
+                            <>
+                                <span className="font-mono font-black text-neutral-900 dark:text-white">
+                                    {cutiCount}
+                                </span>
+                                <span className="text-neutral-400 dark:text-zinc-500">
+                                    cuti bersama
+                                </span>
+                            </>
                         )}
                     </div>
                 )}
             </div>
 
             {hariLibur.length > 0 ? (
-                <div className="space-y-6">
+                <div className="space-y-8">
                     {Object.entries(grouped).map(([month, items]) => (
                         <div key={month}>
                             <div className="mb-3 flex items-center gap-3">
-                                <p className="text-xs font-bold tracking-widest text-rose-600 uppercase dark:text-rose-400">
+                                <p className="text-[11px] font-bold tracking-[0.2em] text-red-600 uppercase">
                                     {monthLabel(month)}
                                 </p>
                                 <div className="h-px flex-1 bg-neutral-100 dark:bg-zinc-800" />
-                                <p className="text-xs text-neutral-400 dark:text-zinc-600">
+                                <p className="text-[11px] text-neutral-300 dark:text-zinc-700">
                                     {items.length} hari
                                 </p>
                             </div>
-                            <div className="overflow-hidden rounded-lg border border-neutral-200/60 bg-white shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
-                                <ul className="divide-y divide-neutral-100 dark:divide-zinc-800/60">
-                                    {items.map((item) => (
-                                        <li
-                                            key={item.tanggal}
-                                            className="flex items-center gap-4 px-5 py-4 transition-colors hover:bg-neutral-50/60 dark:hover:bg-zinc-800/30"
+                            <div className="divide-y divide-neutral-100 border-t border-neutral-200 dark:divide-zinc-800 dark:border-zinc-800">
+                                {items.map((item) => (
+                                    <div
+                                        key={item.tanggal}
+                                        className="flex items-center gap-5 py-3.5"
+                                    >
+                                        <div className="flex w-10 flex-none flex-col items-center">
+                                            <p className="font-mono text-2xl leading-none font-black text-neutral-900 dark:text-white">
+                                                {getDay(item.tanggal)}
+                                            </p>
+                                            <p className="mt-0.5 text-[10px] font-medium text-neutral-400 uppercase dark:text-zinc-500">
+                                                {getDayName(item.tanggal)}
+                                            </p>
+                                        </div>
+                                        <p className="min-w-0 flex-1 text-sm font-medium text-neutral-900 dark:text-white">
+                                            {item.nama}
+                                        </p>
+                                        <span
+                                            className={[
+                                                'shrink-0 text-[10px] font-bold tracking-[0.15em] uppercase',
+                                                item.jenis === 'nasional'
+                                                    ? 'text-red-600'
+                                                    : 'text-neutral-400 dark:text-zinc-500',
+                                            ].join(' ')}
                                         >
-                                            <div className="flex w-10 flex-none flex-col items-center">
-                                                <p className="font-display text-2xl leading-none font-bold text-neutral-900 dark:text-white">
-                                                    {getDay(item.tanggal)}
-                                                </p>
-                                                <p className="mt-0.5 text-xs text-neutral-400 dark:text-zinc-500">
-                                                    {getDayName(item.tanggal)}
-                                                </p>
-                                            </div>
-                                            <div className="min-w-0 flex-1">
-                                                <p className="font-medium text-neutral-900 dark:text-white">
-                                                    {item.nama}
-                                                </p>
-                                            </div>
-                                            <span
-                                                className={[
-                                                    'ml-4 shrink-0 rounded-full px-3 py-1 text-xs font-medium',
-                                                    item.jenis === 'nasional'
-                                                        ? 'bg-rose-100 text-rose-700 dark:bg-rose-950/60 dark:text-rose-400'
-                                                        : 'bg-blue-100 text-blue-700 dark:bg-blue-950/60 dark:text-red-400',
-                                                ].join(' ')}
-                                            >
-                                                {item.jenis === 'nasional'
-                                                    ? 'Libur'
-                                                    : 'Cuti'}
-                                            </span>
-                                        </li>
-                                    ))}
-                                </ul>
+                                            {item.jenis === 'nasional'
+                                                ? 'Libur'
+                                                : 'Cuti'}
+                                        </span>
+                                    </div>
+                                ))}
                             </div>
                         </div>
                     ))}
                 </div>
             ) : (
-                <div className="rounded-lg border border-dashed border-rose-200 bg-rose-50/30 py-20 text-center dark:border-rose-900/30 dark:bg-rose-950/10">
-                    <p className="text-4xl">📅</p>
-                    <p className="mt-4 font-medium text-neutral-500 dark:text-zinc-400">
-                        Tidak ada hari libur untuk periode ini
-                    </p>
-                </div>
+                <p className="py-16 text-center text-sm text-neutral-400 dark:text-zinc-600">
+                    Tidak ada hari libur untuk periode ini.
+                </p>
             )}
         </Layout>
     );

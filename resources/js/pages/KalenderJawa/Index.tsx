@@ -23,93 +23,81 @@ export default function KalenderJawaIndex({ tanggal, result }: Props) {
             <Head title="Kalender Jawa" />
 
             <div className="mb-8">
-                <p className="mb-2 text-xs font-bold tracking-widest text-amber-600 uppercase dark:text-amber-400">
+                <p className="mb-2 text-[11px] font-bold tracking-[0.2em] text-red-600 uppercase">
                     Penanggalan Jawa · Tradisional
                 </p>
-                <h1 className="font-display text-4xl font-bold tracking-tight text-neutral-900 dark:text-white">
+                <h1 className="font-display text-4xl font-black tracking-tight text-neutral-900 dark:text-white">
                     Kalender Jawa
                 </h1>
-                <p className="mt-2 text-neutral-500 dark:text-zinc-400">
+                <p className="mt-2 text-sm text-neutral-400 dark:text-zinc-500">
                     Konversi tanggal Masehi ke penanggalan Jawa
                 </p>
             </div>
 
-            <div className="mx-auto max-w-lg">
-                <div className="rounded-lg border border-neutral-200/60 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
-                    <form onSubmit={handleSubmit} className="flex gap-3">
-                        <input
-                            type="date"
-                            value={value}
-                            onChange={(e) => setValue(e.target.value)}
-                            className="flex-1 rounded-xl border border-neutral-200 bg-white px-4 py-2.5 text-sm transition-colors focus:border-amber-400 focus:ring-2 focus:ring-amber-100 focus:outline-none dark:border-zinc-700 dark:bg-zinc-800/50 dark:text-white"
-                        />
-                        <button
-                            type="submit"
-                            disabled={!value}
-                            className="rounded-xl bg-amber-500 px-6 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-amber-600 focus:outline-none disabled:cursor-not-allowed disabled:opacity-40"
-                        >
-                            Konversi
-                        </button>
-                    </form>
-                </div>
-
-                {result && (
-                    <div className="mt-4 overflow-hidden rounded-lg border border-amber-200/60 bg-white shadow-sm dark:border-amber-900/30 dark:bg-zinc-900">
-                        <div className="bg-gradient-to-r from-amber-50 to-yellow-50 px-6 py-4 dark:from-amber-950/20 dark:to-yellow-950/20">
-                            <p className="text-xs text-amber-700/60 dark:text-amber-400/60">
-                                Tanggal Masehi
-                            </p>
-                            <p className="mt-0.5 font-semibold text-neutral-900 dark:text-white">
-                                {result.tanggalMasehi ?? tanggal}
-                            </p>
-                        </div>
-
-                        <div className="p-6">
-                            <div className="mb-5 rounded-lg bg-gradient-to-br from-amber-400 to-yellow-500 p-6 text-center text-white shadow-md">
-                                <p className="font-display text-3xl font-bold">
-                                    {result.hari} {result.pasaran}
-                                </p>
-                                <p className="mt-2 text-amber-100">
-                                    Tahun {result.tahunJawa} · Windu{' '}
-                                    {result.namaWindu}
-                                </p>
-                            </div>
-
-                            <div className="grid grid-cols-2 gap-3">
-                                {[
-                                    { label: 'Hari', value: result.hari },
-                                    { label: 'Pasaran', value: result.pasaran },
-                                    { label: 'Wuku', value: result.wuku },
-                                    {
-                                        label: 'Tahun Jawa',
-                                        value: String(result.tahunJawa),
-                                    },
-                                    {
-                                        label: 'Nama Windu',
-                                        value: result.namaWindu,
-                                    },
-                                    {
-                                        label: 'Tahun dalam Windu',
-                                        value: String(result.tahunDalamWindu),
-                                    },
-                                ].map(({ label, value: val }) => (
-                                    <div
-                                        key={label}
-                                        className="rounded-xl bg-amber-50 px-4 py-3 dark:bg-amber-950/20"
-                                    >
-                                        <p className="text-xs text-amber-700/60 dark:text-amber-400/60">
-                                            {label}
-                                        </p>
-                                        <p className="mt-1 font-semibold text-neutral-900 dark:text-white">
-                                            {val}
-                                        </p>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                    </div>
-                )}
+            <div className="max-w-sm">
+                <form
+                    onSubmit={handleSubmit}
+                    className="flex gap-0 border-b border-neutral-300 focus-within:border-red-600 dark:border-zinc-700"
+                >
+                    <input
+                        type="date"
+                        value={value}
+                        onChange={(e) => setValue(e.target.value)}
+                        className="flex-1 bg-transparent py-2.5 text-sm text-neutral-900 focus:outline-none dark:text-white"
+                    />
+                    <button
+                        type="submit"
+                        disabled={!value}
+                        className="py-2.5 pl-4 text-sm font-semibold text-red-600 transition-colors hover:text-red-700 focus:outline-none disabled:opacity-40"
+                    >
+                        Konversi
+                    </button>
+                </form>
             </div>
+
+            {result && (
+                <div className="mt-10 max-w-sm">
+                    <div className="mb-2 text-[11px] font-bold tracking-[0.2em] text-neutral-400 uppercase dark:text-zinc-500">
+                        {result.tanggalMasehi ?? tanggal}
+                    </div>
+
+                    <div className="border-l-4 border-red-600 pl-6">
+                        <p className="font-display text-5xl leading-tight font-black text-neutral-900 dark:text-white">
+                            {result.hari}
+                        </p>
+                        <p className="font-display text-3xl font-black text-neutral-400 dark:text-zinc-500">
+                            {result.pasaran}
+                        </p>
+                    </div>
+
+                    <div className="mt-8 divide-y divide-neutral-100 border-t border-neutral-200 dark:divide-zinc-800 dark:border-zinc-800">
+                        {[
+                            { label: 'Wuku', value: result.wuku },
+                            {
+                                label: 'Tahun Jawa',
+                                value: String(result.tahunJawa),
+                            },
+                            { label: 'Nama Windu', value: result.namaWindu },
+                            {
+                                label: 'Tahun dalam Windu',
+                                value: String(result.tahunDalamWindu),
+                            },
+                        ].map(({ label, value: val }) => (
+                            <div
+                                key={label}
+                                className="flex items-baseline justify-between py-3"
+                            >
+                                <p className="text-xs text-neutral-400 dark:text-zinc-500">
+                                    {label}
+                                </p>
+                                <p className="font-mono text-sm font-bold text-neutral-900 dark:text-white">
+                                    {val}
+                                </p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            )}
         </Layout>
     );
 }

@@ -21,46 +21,26 @@ interface Props {
     cuaca: CuacaData | null;
 }
 
-const TIPE_COLOR: Record<string, string> = {
-    kecamatan:
-        'bg-violet-100 text-violet-700 dark:bg-violet-950/40 dark:text-red-400',
-    kota: 'bg-sky-100 text-sky-700 dark:bg-sky-950/40 dark:text-red-400',
-    provinsi:
-        'bg-teal-100 text-red-700 dark:bg-teal-950/40 dark:text-red-400',
-};
-
-const weatherEmoji = (desc: string): string => {
-    const d = desc.toLowerCase();
-    if (d.includes('badai') || d.includes('petir')) return '⛈️';
-    if (d.includes('hujan lebat')) return '🌧️';
-    if (d.includes('hujan')) return '🌦️';
-    if (d.includes('kabut')) return '🌫️';
-    if (d.includes('mendung') || d.includes('berawan tebal')) return '☁️';
-    if (d.includes('berawan')) return '⛅';
-    if (d.includes('cerah')) return '☀️';
-    return '🌤️';
-};
-
 function KecamatanCard({ kec }: { kec: Kecamatan }) {
     const [open, setOpen] = useState(false);
     return (
-        <div className="overflow-hidden rounded-xl border border-neutral-100 dark:border-zinc-800">
+        <div className="border-b border-neutral-100 last:border-b-0 dark:border-zinc-800">
             <button
                 onClick={() => setOpen((v) => !v)}
-                className="flex w-full items-center justify-between bg-neutral-50 px-4 py-3 text-left transition-colors hover:bg-neutral-100 dark:bg-zinc-800/50 dark:hover:bg-zinc-800"
+                className="flex w-full items-center justify-between px-0 py-3 text-left"
             >
                 <span className="text-sm font-medium text-neutral-800 dark:text-neutral-200">
                     {kec.nama}
                 </span>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-3">
                     {kec.kelurahan.length > 0 && (
-                        <span className="rounded-full bg-teal-100 px-2 py-0.5 text-xs font-medium text-red-700 dark:bg-teal-950/40 dark:text-red-400">
+                        <span className="font-mono text-xs text-neutral-400 dark:text-zinc-500">
                             {kec.kelurahan.length} kel
                         </span>
                     )}
                     <svg
                         className={[
-                            'h-4 w-4 text-neutral-400 transition-transform',
+                            'h-3.5 w-3.5 text-neutral-300 transition-transform dark:text-zinc-600',
                             open ? 'rotate-180' : '',
                         ].join(' ')}
                         fill="none"
@@ -77,15 +57,15 @@ function KecamatanCard({ kec }: { kec: Kecamatan }) {
                 </div>
             </button>
             {open && kec.kelurahan.length > 0 && (
-                <div className="grid grid-cols-2 gap-1 bg-white p-3 dark:bg-zinc-900/50">
+                <div className="grid grid-cols-2 gap-x-4 gap-y-1 pb-3 pl-4">
                     {kec.kelurahan.map((kel) => (
                         <div
                             key={kel.kode}
-                            className="rounded-lg px-3 py-1.5 text-xs text-neutral-600 dark:text-neutral-400"
+                            className="text-xs text-neutral-500 dark:text-zinc-400"
                         >
                             {kel.nama}
                             {kel.kodePos && (
-                                <span className="ml-1 text-neutral-300 dark:text-zinc-600">
+                                <span className="ml-1.5 text-neutral-300 dark:text-zinc-600">
                                     {kel.kodePos}
                                 </span>
                             )}
@@ -143,45 +123,27 @@ export default function WilayahIndex({
             <Head title="Wilayah Indonesia" />
 
             <div className="mb-8">
-                <p className="mb-2 text-xs font-bold tracking-widest text-red-600 uppercase dark:text-red-400">
+                <p className="mb-2 text-[11px] font-bold tracking-[0.2em] text-red-600 uppercase">
                     34 Provinsi · 514 Kota · 7.2k Kecamatan
                 </p>
-                <h1 className="font-display text-4xl font-bold tracking-tight text-neutral-900 dark:text-white">
+                <h1 className="font-display text-4xl font-black tracking-tight text-neutral-900 dark:text-white">
                     Wilayah Indonesia
                 </h1>
-                <p className="mt-2 text-neutral-500 dark:text-zinc-400">
-                    Jelajahi data wilayah hingga tingkat kelurahan
-                </p>
             </div>
 
-            <div className="mb-5">
+            <div className="mb-6">
                 <form onSubmit={handleSearch}>
-                    <div className="flex gap-2">
-                        <div className="relative flex-1">
-                            <svg
-                                className="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-neutral-400"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                            >
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth={2}
-                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                                />
-                            </svg>
-                            <input
-                                type="text"
-                                value={query}
-                                onChange={(e) => setQuery(e.target.value)}
-                                placeholder="Cari provinsi, kota, kecamatan..."
-                                className="w-full rounded-xl border border-neutral-200 bg-white py-2.5 pr-4 pl-9 text-sm transition-colors focus:border-red-400 focus:ring-2 focus:ring-red-100 focus:outline-none dark:border-zinc-700 dark:bg-zinc-800/50 dark:text-white dark:placeholder-zinc-500"
-                            />
-                        </div>
+                    <div className="flex gap-0 border-b border-neutral-300 focus-within:border-red-600 dark:border-zinc-700">
+                        <input
+                            type="text"
+                            value={query}
+                            onChange={(e) => setQuery(e.target.value)}
+                            placeholder="Cari provinsi, kota, kecamatan..."
+                            className="flex-1 bg-transparent py-2.5 text-sm text-neutral-900 placeholder-neutral-300 focus:outline-none dark:text-white dark:placeholder-zinc-600"
+                        />
                         <button
                             type="submit"
-                            className="rounded-xl bg-teal-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-teal-700 focus:outline-none"
+                            className="py-2.5 pl-4 text-sm font-semibold text-red-600 transition-colors hover:text-red-700 focus:outline-none"
                         >
                             Cari
                         </button>
@@ -190,39 +152,33 @@ export default function WilayahIndex({
             </div>
 
             {searchQuery && (
-                <div className="mb-5 rounded-lg border border-neutral-200/60 bg-white p-4 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
-                    <p className="mb-3 text-xs font-semibold tracking-wider text-neutral-500 uppercase dark:text-zinc-400">
+                <div className="mb-6">
+                    <p className="mb-3 text-[11px] font-bold tracking-[0.2em] text-neutral-400 uppercase dark:text-zinc-500">
                         Hasil "{searchQuery}"
                     </p>
                     {searchResults.length > 0 ? (
-                        <div className="space-y-1">
+                        <div className="divide-y divide-neutral-100 border-t border-neutral-200 dark:divide-zinc-800 dark:border-zinc-800">
                             {searchResults.map((item) => (
                                 <div
                                     key={item.kode}
-                                    className="rounded-xl bg-neutral-50 px-4 py-3 dark:bg-zinc-800/50"
+                                    className="flex items-center justify-between gap-3 py-3"
                                 >
-                                    <div className="flex items-center justify-between gap-2">
-                                        <span className="font-medium text-neutral-900 dark:text-neutral-100">
+                                    <div>
+                                        <p className="text-sm font-medium text-neutral-900 dark:text-neutral-100">
                                             {item.nama}
-                                        </span>
-                                        <span
-                                            className={[
-                                                'shrink-0 rounded-full px-2.5 py-0.5 text-xs font-medium capitalize',
-                                                TIPE_COLOR[item.tipe] ??
-                                                    'bg-neutral-100 text-neutral-600 dark:bg-zinc-700 dark:text-zinc-300',
-                                            ].join(' ')}
-                                        >
-                                            {item.tipe}
-                                        </span>
+                                        </p>
+                                        <p className="mt-0.5 text-xs text-neutral-400 dark:text-zinc-500">
+                                            {item.kota} · {item.provinsi}
+                                        </p>
                                     </div>
-                                    <p className="mt-0.5 text-xs text-neutral-400">
-                                        {item.kota} · {item.provinsi}
-                                    </p>
+                                    <span className="shrink-0 text-[10px] font-bold tracking-[0.15em] text-neutral-400 uppercase dark:text-zinc-500">
+                                        {item.tipe}
+                                    </span>
                                 </div>
                             ))}
                         </div>
                     ) : (
-                        <p className="text-sm text-neutral-400">
+                        <p className="py-8 text-sm text-neutral-400 dark:text-zinc-600">
                             Tidak ada hasil untuk "{searchQuery}"
                         </p>
                     )}
@@ -230,27 +186,14 @@ export default function WilayahIndex({
             )}
 
             {(showProvinsi || showKota) && (
-                <div className="mb-4 flex items-center gap-2 text-sm">
+                <div className="mb-5 flex items-center gap-2 text-sm">
                     <button
                         onClick={handleBack}
-                        className="flex items-center gap-1 rounded-lg bg-neutral-100 px-3 py-1.5 text-neutral-600 transition-colors hover:bg-teal-100 hover:text-red-700 dark:bg-zinc-800 dark:text-zinc-400 dark:hover:bg-teal-950/40 dark:hover:text-red-400"
+                        className="font-medium text-neutral-400 transition-colors hover:text-red-600 dark:text-zinc-500 dark:hover:text-red-400"
                     >
-                        <svg
-                            className="h-4 w-4"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                        >
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={2}
-                                d="M15 19l-7-7 7-7"
-                            />
-                        </svg>
-                        Kembali
+                        &larr; Kembali
                     </button>
-                    <span className="text-neutral-300 dark:text-zinc-700">
+                    <span className="text-neutral-200 dark:text-zinc-700">
                         /
                     </span>
                     {showKota ? (
@@ -259,11 +202,11 @@ export default function WilayahIndex({
                                 onClick={() =>
                                     handleProvinsiSelect(selectedProvinsi)
                                 }
-                                className="text-neutral-500 hover:text-red-600 dark:text-zinc-400 dark:hover:text-red-400"
+                                className="text-neutral-400 hover:text-red-600 dark:text-zinc-500 dark:hover:text-red-400"
                             >
                                 {provinsiNama}
                             </button>
-                            <span className="text-neutral-300 dark:text-zinc-700">
+                            <span className="text-neutral-200 dark:text-zinc-700">
                                 /
                             </span>
                             <span className="font-semibold text-neutral-900 dark:text-white">
@@ -279,16 +222,16 @@ export default function WilayahIndex({
             )}
 
             {showHome && (
-                <div className="rounded-lg border border-neutral-200/60 bg-white p-5 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
-                    <p className="mb-4 text-xs font-semibold tracking-wider text-neutral-400 uppercase dark:text-zinc-500">
+                <div>
+                    <p className="mb-4 text-[11px] font-bold tracking-[0.2em] text-neutral-400 uppercase dark:text-zinc-500">
                         Semua Provinsi ({provinsiList.length})
                     </p>
-                    <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+                    <div className="grid grid-cols-2 gap-1.5 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
                         {provinsiList.map((p) => (
                             <button
                                 key={p.kode}
                                 onClick={() => handleProvinsiSelect(p.kode)}
-                                className="rounded-xl border border-neutral-100 bg-neutral-50 px-3 py-2.5 text-left text-sm text-neutral-700 transition-colors hover:border-teal-200 hover:bg-red-50 hover:text-red-700 dark:border-zinc-800 dark:bg-zinc-800/50 dark:text-zinc-300 dark:hover:border-teal-800 dark:hover:bg-teal-950/20 dark:hover:text-red-400"
+                                className="rounded-md border border-neutral-100 bg-neutral-50 px-3 py-2.5 text-left text-sm text-neutral-700 transition-colors hover:border-red-200 hover:bg-red-50 hover:text-red-700 dark:border-zinc-800 dark:bg-zinc-800/50 dark:text-zinc-300 dark:hover:border-red-900/40 dark:hover:bg-red-950/20 dark:hover:text-red-400"
                             >
                                 {p.nama}
                             </button>
@@ -298,21 +241,21 @@ export default function WilayahIndex({
             )}
 
             {showProvinsi && provinsiDetail && (
-                <div className="rounded-lg border border-neutral-200/60 bg-white p-5 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
-                    <div className="mb-4 flex items-center gap-2">
-                        <p className="text-xs font-semibold tracking-wider text-neutral-400 uppercase dark:text-zinc-500">
+                <div>
+                    <div className="mb-4 flex items-center gap-3">
+                        <p className="text-[11px] font-bold tracking-[0.2em] text-neutral-400 uppercase dark:text-zinc-500">
                             {provinsiDetail.nama}
                         </p>
-                        <span className="rounded-full bg-teal-100 px-2.5 py-0.5 text-xs font-medium text-red-700 dark:bg-teal-950/40 dark:text-red-400">
+                        <span className="font-mono text-xs text-neutral-300 dark:text-zinc-700">
                             {provinsiDetail.kota.length} kota/kab
                         </span>
                     </div>
-                    <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4">
+                    <div className="grid grid-cols-2 gap-1.5 sm:grid-cols-3 md:grid-cols-4">
                         {provinsiDetail.kota.map((k) => (
                             <button
                                 key={k.kode}
                                 onClick={() => handleKotaSelect(k.kode)}
-                                className="rounded-xl border border-neutral-100 bg-neutral-50 px-3 py-3 text-left text-sm text-neutral-700 transition-colors hover:border-teal-200 hover:bg-red-50 hover:text-red-700 dark:border-zinc-800 dark:bg-zinc-800/50 dark:text-zinc-300 dark:hover:border-teal-800 dark:hover:bg-teal-950/20 dark:hover:text-red-400"
+                                className="rounded-md border border-neutral-100 bg-neutral-50 px-3 py-3 text-left text-sm text-neutral-700 transition-colors hover:border-red-200 hover:bg-red-50 hover:text-red-700 dark:border-zinc-800 dark:bg-zinc-800/50 dark:text-zinc-300 dark:hover:border-red-900/40 dark:hover:bg-red-950/20 dark:hover:text-red-400"
                             >
                                 <span className="line-clamp-2 leading-snug">
                                     {k.nama}
@@ -326,20 +269,20 @@ export default function WilayahIndex({
             {showKota && (
                 <div
                     className={[
-                        'grid gap-5',
-                        cuaca ? 'lg:grid-cols-[1fr_320px]' : '',
+                        'grid gap-6',
+                        cuaca ? 'lg:grid-cols-[1fr_300px]' : '',
                     ].join(' ')}
                 >
-                    <div className="rounded-lg border border-neutral-200/60 bg-white p-5 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
-                        <div className="mb-4 flex items-center gap-2">
-                            <p className="text-xs font-semibold tracking-wider text-neutral-400 uppercase dark:text-zinc-500">
+                    <div>
+                        <div className="mb-3 flex items-center gap-3">
+                            <p className="text-[11px] font-bold tracking-[0.2em] text-neutral-400 uppercase dark:text-zinc-500">
                                 Kecamatan
                             </p>
-                            <span className="rounded-full bg-teal-100 px-2.5 py-0.5 text-xs font-medium text-red-700 dark:bg-teal-950/40 dark:text-red-400">
-                                {kotaDetail.kecamatan.length} kecamatan
+                            <span className="font-mono text-xs text-neutral-300 dark:text-zinc-700">
+                                {kotaDetail.kecamatan.length}
                             </span>
                         </div>
-                        <div className="space-y-2">
+                        <div>
                             {kotaDetail.kecamatan.map((kec) => (
                                 <KecamatanCard key={kec.kode} kec={kec} />
                             ))}
@@ -347,44 +290,33 @@ export default function WilayahIndex({
                     </div>
 
                     {cuaca && (
-                        <div className="rounded-lg border border-neutral-200/60 bg-white p-5 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
-                            <div className="mb-4 flex items-center justify-between">
-                                <p className="text-xs font-semibold tracking-wider text-neutral-400 uppercase dark:text-zinc-500">
-                                    Cuaca {cuaca.kota}
-                                </p>
-                                <span className="rounded-full bg-sky-100 px-2.5 py-0.5 text-xs font-medium text-sky-700 dark:bg-sky-950/40 dark:text-red-400">
-                                    Real-time
-                                </span>
-                            </div>
-                            <div className="space-y-2">
+                        <div>
+                            <p className="mb-3 text-[11px] font-bold tracking-[0.2em] text-neutral-400 uppercase dark:text-zinc-500">
+                                Cuaca {cuaca.kota}
+                            </p>
+                            <div className="divide-y divide-neutral-100 border-t border-neutral-200 dark:divide-zinc-800 dark:border-zinc-800">
                                 {cuaca.prakiraan.map((p, i) => (
                                     <div
                                         key={i}
-                                        className="flex items-center gap-3 rounded-xl bg-neutral-50 px-4 py-3 dark:bg-zinc-800/50"
+                                        className="flex items-center justify-between py-3"
                                     >
-                                        <span className="text-2xl leading-none">
-                                            {weatherEmoji(p.cuaca)}
-                                        </span>
-                                        <div className="min-w-0 flex-1">
-                                            <div className="flex items-center justify-between">
-                                                <span className="text-xs text-neutral-400">
-                                                    {p.waktu
-                                                        .split('T')[1]
-                                                        ?.slice(0, 5) ??
-                                                        p.waktu}
-                                                </span>
-                                                <span className="font-bold text-neutral-900 dark:text-white">
-                                                    {p.suhu}
-                                                </span>
-                                            </div>
-                                            <p className="mt-0.5 truncate text-xs text-neutral-500 dark:text-zinc-400">
+                                        <div>
+                                            <p className="text-xs text-neutral-400 dark:text-zinc-500">
+                                                {p.waktu
+                                                    .split('T')[1]
+                                                    ?.slice(0, 5) ?? p.waktu}
+                                            </p>
+                                            <p className="mt-0.5 text-xs text-neutral-500 dark:text-zinc-400">
                                                 {p.cuaca}
                                             </p>
-                                            <p className="text-xs text-neutral-400">
-                                                💧{p.kelembapan} · 💨
+                                            <p className="text-xs text-neutral-300 dark:text-zinc-700">
+                                                {p.kelembapan} ·{' '}
                                                 {p.kecepatanAngin}
                                             </p>
                                         </div>
+                                        <p className="font-mono text-xl font-black text-neutral-900 dark:text-white">
+                                            {p.suhu}
+                                        </p>
                                     </div>
                                 ))}
                             </div>
