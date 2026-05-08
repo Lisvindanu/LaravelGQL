@@ -35,7 +35,7 @@ export default function KalenderJawaIndex({ tanggal, result }: Props) {
             </div>
 
             <div className="mx-auto max-w-lg">
-                <div className="rounded-2xl border border-neutral-200/60 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
+                <div className="rounded-lg border border-neutral-200/60 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
                     <form onSubmit={handleSubmit} className="flex gap-3">
                         <input
                             type="date"
@@ -54,7 +54,7 @@ export default function KalenderJawaIndex({ tanggal, result }: Props) {
                 </div>
 
                 {result && (
-                    <div className="mt-4 overflow-hidden rounded-2xl border border-amber-200/60 bg-white shadow-sm dark:border-amber-900/30 dark:bg-zinc-900">
+                    <div className="mt-4 overflow-hidden rounded-lg border border-amber-200/60 bg-white shadow-sm dark:border-amber-900/30 dark:bg-zinc-900">
                         <div className="bg-gradient-to-r from-amber-50 to-yellow-50 px-6 py-4 dark:from-amber-950/20 dark:to-yellow-950/20">
                             <p className="text-xs text-amber-700/60 dark:text-amber-400/60">
                                 Tanggal Masehi
@@ -65,7 +65,7 @@ export default function KalenderJawaIndex({ tanggal, result }: Props) {
                         </div>
 
                         <div className="p-6">
-                            <div className="mb-5 rounded-2xl bg-gradient-to-br from-amber-400 to-yellow-500 p-6 text-center text-white shadow-md">
+                            <div className="mb-5 rounded-lg bg-gradient-to-br from-amber-400 to-yellow-500 p-6 text-center text-white shadow-md">
                                 <p className="font-display text-3xl font-bold">
                                     {result.hari} {result.pasaran}
                                 </p>

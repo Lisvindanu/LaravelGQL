@@ -35,12 +35,12 @@ const weatherBg = (desc: string): string => {
     const d = desc.toLowerCase();
     if (d.includes('badai') || d.includes('petir'))
         return 'from-slate-600 to-slate-800';
-    if (d.includes('hujan')) return 'from-blue-500 to-indigo-700';
+    if (d.includes('hujan')) return 'from-blue-500 to-red-800';
     if (d.includes('kabut')) return 'from-slate-400 to-slate-600';
     if (d.includes('mendung') || d.includes('berawan tebal'))
-        return 'from-slate-400 to-blue-500';
-    if (d.includes('berawan')) return 'from-sky-400 to-blue-500';
-    return 'from-sky-400 to-blue-600';
+        return 'from-slate-400 to-red-600';
+    if (d.includes('berawan')) return 'from-red-500 to-red-600';
+    return 'from-red-500 to-red-700';
 };
 
 export default function CuacaIndex({
@@ -80,14 +80,14 @@ export default function CuacaIndex({
     const currentCondition = cuaca?.prakiraan[0];
     const bg = currentCondition
         ? weatherBg(currentCondition.cuaca)
-        : 'from-sky-400 to-blue-600';
+        : 'from-red-500 to-red-700';
 
     return (
         <Layout>
             <Head title="Prakiraan Cuaca" />
 
             <div className="mb-8">
-                <p className="mb-2 text-xs font-bold tracking-widest text-sky-600 uppercase dark:text-sky-400">
+                <p className="mb-2 text-xs font-bold tracking-widest text-red-600 uppercase dark:text-red-400">
                     Real-time · Open-Meteo
                 </p>
                 <h1 className="font-display text-4xl font-bold tracking-tight text-neutral-900 dark:text-white">
@@ -98,7 +98,7 @@ export default function CuacaIndex({
                 </p>
             </div>
 
-            <div className="mb-6 rounded-2xl border border-neutral-200/60 bg-white p-5 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
+            <div className="mb-6 rounded-lg border border-neutral-200/60 bg-white p-5 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
                 <div className="grid gap-4 sm:grid-cols-3">
                     <div>
                         <label className="mb-1.5 block text-xs font-semibold tracking-wider text-neutral-400 uppercase dark:text-zinc-500">
@@ -109,7 +109,7 @@ export default function CuacaIndex({
                             onChange={(e) =>
                                 handleProvinsiChange(e.target.value)
                             }
-                            className="w-full rounded-xl border border-neutral-200 bg-white px-4 py-2.5 text-sm transition-colors focus:border-sky-400 focus:ring-2 focus:ring-sky-100 focus:outline-none dark:border-zinc-700 dark:bg-zinc-800/50 dark:text-white"
+                            className="w-full rounded-xl border border-neutral-200 bg-white px-4 py-2.5 text-sm transition-colors focus:border-red-400 focus:ring-2 focus:ring-red-100 focus:outline-none dark:border-zinc-700 dark:bg-zinc-800/50 dark:text-white"
                         >
                             <option value="">-- Pilih Provinsi --</option>
                             {provinsiList.map((p) => (
@@ -127,7 +127,7 @@ export default function CuacaIndex({
                             value={selectedKotaKode}
                             onChange={(e) => handleKotaChange(e.target.value)}
                             disabled={kotaList.length === 0}
-                            className="w-full rounded-xl border border-neutral-200 bg-white px-4 py-2.5 text-sm transition-colors focus:border-sky-400 focus:ring-2 focus:ring-sky-100 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 dark:border-zinc-700 dark:bg-zinc-800/50 dark:text-white"
+                            className="w-full rounded-xl border border-neutral-200 bg-white px-4 py-2.5 text-sm transition-colors focus:border-red-400 focus:ring-2 focus:ring-red-100 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 dark:border-zinc-700 dark:bg-zinc-800/50 dark:text-white"
                         >
                             <option value="">-- Pilih Kota --</option>
                             {kotaList.map((k) => (
@@ -150,7 +150,7 @@ export default function CuacaIndex({
                                 handleKecamatanChange(e.target.value)
                             }
                             disabled={kecamatanList.length === 0}
-                            className="w-full rounded-xl border border-neutral-200 bg-white px-4 py-2.5 text-sm transition-colors focus:border-sky-400 focus:ring-2 focus:ring-sky-100 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 dark:border-zinc-700 dark:bg-zinc-800/50 dark:text-white"
+                            className="w-full rounded-xl border border-neutral-200 bg-white px-4 py-2.5 text-sm transition-colors focus:border-red-400 focus:ring-2 focus:ring-red-100 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 dark:border-zinc-700 dark:bg-zinc-800/50 dark:text-white"
                         >
                             <option value="">-- Semua Kecamatan --</option>
                             {kecamatanList.map((k) => (
@@ -166,7 +166,7 @@ export default function CuacaIndex({
             {cuaca && currentCondition && (
                 <div>
                     <div
-                        className={`mb-4 overflow-hidden rounded-3xl bg-gradient-to-br ${bg} p-8 text-white shadow-xl`}
+                        className={`mb-4 overflow-hidden rounded-xl bg-gradient-to-br ${bg} p-8 text-white shadow-xl`}
                     >
                         <p className="text-sm text-white/70">{cuaca.kota}</p>
                         <div className="mt-4 flex items-end gap-5">
@@ -196,7 +196,7 @@ export default function CuacaIndex({
                         {cuaca.prakiraan.slice(1).map((p, i) => (
                             <div
                                 key={i}
-                                className="w-32 flex-none rounded-2xl border border-neutral-200/60 bg-white p-4 shadow-sm dark:border-zinc-800 dark:bg-zinc-900"
+                                className="w-32 flex-none rounded-lg border border-neutral-200/60 bg-white p-4 shadow-sm dark:border-zinc-800 dark:bg-zinc-900"
                             >
                                 <p className="truncate text-xs text-neutral-400 dark:text-zinc-500">
                                     {p.waktu.split('T')[1]?.slice(0, 5) ??
@@ -230,7 +230,7 @@ export default function CuacaIndex({
             {selectedProvinsi &&
                 (selectedKota || selectedKecamatan) &&
                 !cuaca && (
-                    <div className="rounded-2xl border border-neutral-200/60 bg-white py-16 text-center shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
+                    <div className="rounded-lg border border-neutral-200/60 bg-white py-16 text-center shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
                         <p className="text-4xl">🌤️</p>
                         <p className="mt-3 font-medium text-neutral-500 dark:text-zinc-400">
                             Data cuaca tidak tersedia untuk lokasi ini
@@ -251,7 +251,7 @@ export default function CuacaIndex({
                             return (
                                 <div
                                     key={city.kota}
-                                    className={`overflow-hidden rounded-2xl bg-gradient-to-br ${cityBg} p-4 text-white shadow-sm`}
+                                    className={`overflow-hidden rounded-lg bg-gradient-to-br ${cityBg} p-4 text-white shadow-sm`}
                                 >
                                     <p className="truncate text-xs font-semibold text-white/70">
                                         {city.kota}
@@ -276,7 +276,7 @@ export default function CuacaIndex({
             )}
 
             {!selectedProvinsi && defaultCities.length === 0 && (
-                <div className="rounded-2xl border border-dashed border-sky-200 bg-sky-50/50 py-20 text-center dark:border-sky-900/30 dark:bg-sky-950/10">
+                <div className="rounded-lg border border-dashed border-sky-200 bg-sky-50/50 py-20 text-center dark:border-sky-900/30 dark:bg-sky-950/10">
                     <p className="text-5xl">🌏</p>
                     <p className="mt-4 font-display text-lg font-semibold text-neutral-700 dark:text-zinc-300">
                         Pilih lokasi untuk melihat cuaca

@@ -143,7 +143,7 @@ export default function HariLiburIndex({
                                     {items.length} hari
                                 </p>
                             </div>
-                            <div className="overflow-hidden rounded-2xl border border-neutral-200/60 bg-white shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
+                            <div className="overflow-hidden rounded-lg border border-neutral-200/60 bg-white shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
                                 <ul className="divide-y divide-neutral-100 dark:divide-zinc-800/60">
                                     {items.map((item) => (
                                         <li
@@ -168,7 +168,7 @@ export default function HariLiburIndex({
                                                     'ml-4 shrink-0 rounded-full px-3 py-1 text-xs font-medium',
                                                     item.jenis === 'nasional'
                                                         ? 'bg-rose-100 text-rose-700 dark:bg-rose-950/60 dark:text-rose-400'
-                                                        : 'bg-blue-100 text-blue-700 dark:bg-blue-950/60 dark:text-blue-400',
+                                                        : 'bg-blue-100 text-blue-700 dark:bg-blue-950/60 dark:text-red-400',
                                                 ].join(' ')}
                                             >
                                                 {item.jenis === 'nasional'
@@ -183,7 +183,7 @@ export default function HariLiburIndex({
                     ))}
                 </div>
             ) : (
-                <div className="rounded-2xl border border-dashed border-rose-200 bg-rose-50/30 py-20 text-center dark:border-rose-900/30 dark:bg-rose-950/10">
+                <div className="rounded-lg border border-dashed border-rose-200 bg-rose-50/30 py-20 text-center dark:border-rose-900/30 dark:bg-rose-950/10">
                     <p className="text-4xl">📅</p>
                     <p className="mt-4 font-medium text-neutral-500 dark:text-zinc-400">
                         Tidak ada hari libur untuk periode ini

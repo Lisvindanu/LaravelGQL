@@ -23,10 +23,10 @@ interface Props {
 
 const TIPE_COLOR: Record<string, string> = {
     kecamatan:
-        'bg-violet-100 text-violet-700 dark:bg-violet-950/40 dark:text-violet-400',
-    kota: 'bg-sky-100 text-sky-700 dark:bg-sky-950/40 dark:text-sky-400',
+        'bg-violet-100 text-violet-700 dark:bg-violet-950/40 dark:text-red-400',
+    kota: 'bg-sky-100 text-sky-700 dark:bg-sky-950/40 dark:text-red-400',
     provinsi:
-        'bg-teal-100 text-teal-700 dark:bg-teal-950/40 dark:text-teal-400',
+        'bg-teal-100 text-red-700 dark:bg-teal-950/40 dark:text-red-400',
 };
 
 const weatherEmoji = (desc: string): string => {
@@ -54,7 +54,7 @@ function KecamatanCard({ kec }: { kec: Kecamatan }) {
                 </span>
                 <div className="flex items-center gap-2">
                     {kec.kelurahan.length > 0 && (
-                        <span className="rounded-full bg-teal-100 px-2 py-0.5 text-xs font-medium text-teal-700 dark:bg-teal-950/40 dark:text-teal-400">
+                        <span className="rounded-full bg-teal-100 px-2 py-0.5 text-xs font-medium text-red-700 dark:bg-teal-950/40 dark:text-red-400">
                             {kec.kelurahan.length} kel
                         </span>
                     )}
@@ -143,7 +143,7 @@ export default function WilayahIndex({
             <Head title="Wilayah Indonesia" />
 
             <div className="mb-8">
-                <p className="mb-2 text-xs font-bold tracking-widest text-teal-600 uppercase dark:text-teal-400">
+                <p className="mb-2 text-xs font-bold tracking-widest text-red-600 uppercase dark:text-red-400">
                     34 Provinsi · 514 Kota · 7.2k Kecamatan
                 </p>
                 <h1 className="font-display text-4xl font-bold tracking-tight text-neutral-900 dark:text-white">
@@ -176,7 +176,7 @@ export default function WilayahIndex({
                                 value={query}
                                 onChange={(e) => setQuery(e.target.value)}
                                 placeholder="Cari provinsi, kota, kecamatan..."
-                                className="w-full rounded-xl border border-neutral-200 bg-white py-2.5 pr-4 pl-9 text-sm transition-colors focus:border-teal-400 focus:ring-2 focus:ring-teal-100 focus:outline-none dark:border-zinc-700 dark:bg-zinc-800/50 dark:text-white dark:placeholder-zinc-500"
+                                className="w-full rounded-xl border border-neutral-200 bg-white py-2.5 pr-4 pl-9 text-sm transition-colors focus:border-red-400 focus:ring-2 focus:ring-red-100 focus:outline-none dark:border-zinc-700 dark:bg-zinc-800/50 dark:text-white dark:placeholder-zinc-500"
                             />
                         </div>
                         <button
@@ -190,7 +190,7 @@ export default function WilayahIndex({
             </div>
 
             {searchQuery && (
-                <div className="mb-5 rounded-2xl border border-neutral-200/60 bg-white p-4 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
+                <div className="mb-5 rounded-lg border border-neutral-200/60 bg-white p-4 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
                     <p className="mb-3 text-xs font-semibold tracking-wider text-neutral-500 uppercase dark:text-zinc-400">
                         Hasil "{searchQuery}"
                     </p>
@@ -233,7 +233,7 @@ export default function WilayahIndex({
                 <div className="mb-4 flex items-center gap-2 text-sm">
                     <button
                         onClick={handleBack}
-                        className="flex items-center gap-1 rounded-lg bg-neutral-100 px-3 py-1.5 text-neutral-600 transition-colors hover:bg-teal-100 hover:text-teal-700 dark:bg-zinc-800 dark:text-zinc-400 dark:hover:bg-teal-950/40 dark:hover:text-teal-400"
+                        className="flex items-center gap-1 rounded-lg bg-neutral-100 px-3 py-1.5 text-neutral-600 transition-colors hover:bg-teal-100 hover:text-red-700 dark:bg-zinc-800 dark:text-zinc-400 dark:hover:bg-teal-950/40 dark:hover:text-red-400"
                     >
                         <svg
                             className="h-4 w-4"
@@ -259,7 +259,7 @@ export default function WilayahIndex({
                                 onClick={() =>
                                     handleProvinsiSelect(selectedProvinsi)
                                 }
-                                className="text-neutral-500 hover:text-teal-600 dark:text-zinc-400 dark:hover:text-teal-400"
+                                className="text-neutral-500 hover:text-red-600 dark:text-zinc-400 dark:hover:text-red-400"
                             >
                                 {provinsiNama}
                             </button>
@@ -279,7 +279,7 @@ export default function WilayahIndex({
             )}
 
             {showHome && (
-                <div className="rounded-2xl border border-neutral-200/60 bg-white p-5 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
+                <div className="rounded-lg border border-neutral-200/60 bg-white p-5 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
                     <p className="mb-4 text-xs font-semibold tracking-wider text-neutral-400 uppercase dark:text-zinc-500">
                         Semua Provinsi ({provinsiList.length})
                     </p>
@@ -288,7 +288,7 @@ export default function WilayahIndex({
                             <button
                                 key={p.kode}
                                 onClick={() => handleProvinsiSelect(p.kode)}
-                                className="rounded-xl border border-neutral-100 bg-neutral-50 px-3 py-2.5 text-left text-sm text-neutral-700 transition-colors hover:border-teal-200 hover:bg-teal-50 hover:text-teal-700 dark:border-zinc-800 dark:bg-zinc-800/50 dark:text-zinc-300 dark:hover:border-teal-800 dark:hover:bg-teal-950/20 dark:hover:text-teal-400"
+                                className="rounded-xl border border-neutral-100 bg-neutral-50 px-3 py-2.5 text-left text-sm text-neutral-700 transition-colors hover:border-teal-200 hover:bg-red-50 hover:text-red-700 dark:border-zinc-800 dark:bg-zinc-800/50 dark:text-zinc-300 dark:hover:border-teal-800 dark:hover:bg-teal-950/20 dark:hover:text-red-400"
                             >
                                 {p.nama}
                             </button>
@@ -298,12 +298,12 @@ export default function WilayahIndex({
             )}
 
             {showProvinsi && provinsiDetail && (
-                <div className="rounded-2xl border border-neutral-200/60 bg-white p-5 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
+                <div className="rounded-lg border border-neutral-200/60 bg-white p-5 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
                     <div className="mb-4 flex items-center gap-2">
                         <p className="text-xs font-semibold tracking-wider text-neutral-400 uppercase dark:text-zinc-500">
                             {provinsiDetail.nama}
                         </p>
-                        <span className="rounded-full bg-teal-100 px-2.5 py-0.5 text-xs font-medium text-teal-700 dark:bg-teal-950/40 dark:text-teal-400">
+                        <span className="rounded-full bg-teal-100 px-2.5 py-0.5 text-xs font-medium text-red-700 dark:bg-teal-950/40 dark:text-red-400">
                             {provinsiDetail.kota.length} kota/kab
                         </span>
                     </div>
@@ -312,7 +312,7 @@ export default function WilayahIndex({
                             <button
                                 key={k.kode}
                                 onClick={() => handleKotaSelect(k.kode)}
-                                className="rounded-xl border border-neutral-100 bg-neutral-50 px-3 py-3 text-left text-sm text-neutral-700 transition-colors hover:border-teal-200 hover:bg-teal-50 hover:text-teal-700 dark:border-zinc-800 dark:bg-zinc-800/50 dark:text-zinc-300 dark:hover:border-teal-800 dark:hover:bg-teal-950/20 dark:hover:text-teal-400"
+                                className="rounded-xl border border-neutral-100 bg-neutral-50 px-3 py-3 text-left text-sm text-neutral-700 transition-colors hover:border-teal-200 hover:bg-red-50 hover:text-red-700 dark:border-zinc-800 dark:bg-zinc-800/50 dark:text-zinc-300 dark:hover:border-teal-800 dark:hover:bg-teal-950/20 dark:hover:text-red-400"
                             >
                                 <span className="line-clamp-2 leading-snug">
                                     {k.nama}
@@ -330,12 +330,12 @@ export default function WilayahIndex({
                         cuaca ? 'lg:grid-cols-[1fr_320px]' : '',
                     ].join(' ')}
                 >
-                    <div className="rounded-2xl border border-neutral-200/60 bg-white p-5 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
+                    <div className="rounded-lg border border-neutral-200/60 bg-white p-5 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
                         <div className="mb-4 flex items-center gap-2">
                             <p className="text-xs font-semibold tracking-wider text-neutral-400 uppercase dark:text-zinc-500">
                                 Kecamatan
                             </p>
-                            <span className="rounded-full bg-teal-100 px-2.5 py-0.5 text-xs font-medium text-teal-700 dark:bg-teal-950/40 dark:text-teal-400">
+                            <span className="rounded-full bg-teal-100 px-2.5 py-0.5 text-xs font-medium text-red-700 dark:bg-teal-950/40 dark:text-red-400">
                                 {kotaDetail.kecamatan.length} kecamatan
                             </span>
                         </div>
@@ -347,12 +347,12 @@ export default function WilayahIndex({
                     </div>
 
                     {cuaca && (
-                        <div className="rounded-2xl border border-neutral-200/60 bg-white p-5 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
+                        <div className="rounded-lg border border-neutral-200/60 bg-white p-5 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
                             <div className="mb-4 flex items-center justify-between">
                                 <p className="text-xs font-semibold tracking-wider text-neutral-400 uppercase dark:text-zinc-500">
                                     Cuaca {cuaca.kota}
                                 </p>
-                                <span className="rounded-full bg-sky-100 px-2.5 py-0.5 text-xs font-medium text-sky-700 dark:bg-sky-950/40 dark:text-sky-400">
+                                <span className="rounded-full bg-sky-100 px-2.5 py-0.5 text-xs font-medium text-sky-700 dark:bg-sky-950/40 dark:text-red-400">
                                     Real-time
                                 </span>
                             </div>

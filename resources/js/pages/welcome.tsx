@@ -109,7 +109,7 @@ export default function Welcome() {
                 ].map((s) => (
                     <div
                         key={s.label}
-                        className="rounded-2xl border border-neutral-200/60 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900"
+                        className="rounded-lg border border-neutral-200/60 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900"
                     >
                         <p className="font-display text-2xl font-bold tracking-tight text-neutral-900 dark:text-white">
                             {s.value}
@@ -127,7 +127,7 @@ export default function Welcome() {
                     <Link
                         key={feature.href}
                         href={feature.href}
-                        className="group flex flex-col gap-4 rounded-2xl border border-neutral-200/60 bg-white p-5 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md dark:border-zinc-800 dark:bg-zinc-900"
+                        className="group flex flex-col gap-4 rounded-lg border border-neutral-200/60 bg-white p-5 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md dark:border-zinc-800 dark:bg-zinc-900"
                     >
                         <div className="flex items-start justify-between">
                             <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-neutral-100 text-xl dark:bg-zinc-800">

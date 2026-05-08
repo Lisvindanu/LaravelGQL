@@ -39,7 +39,7 @@ export default function TerbilangIndex({ angka, result }: Props) {
             </div>
 
             <div className="mx-auto max-w-lg">
-                <div className="rounded-2xl border border-neutral-200/60 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
+                <div className="rounded-lg border border-neutral-200/60 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
                     <form onSubmit={handleSubmit} className="space-y-4">
                         <div>
                             <label className="mb-1.5 block text-xs font-semibold tracking-wider text-neutral-400 uppercase dark:text-zinc-500">
@@ -81,7 +81,7 @@ export default function TerbilangIndex({ angka, result }: Props) {
                             <div className="h-px flex-1 bg-neutral-200 dark:bg-zinc-800" />
                         </div>
 
-                        <div className="mt-6 rounded-2xl border border-neutral-200/60 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
+                        <div className="mt-6 rounded-lg border border-neutral-200/60 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
                             <p className="text-xs text-neutral-400 dark:text-zinc-500">
                                 Angka
                             </p>
