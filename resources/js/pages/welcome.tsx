@@ -30,14 +30,12 @@ export default function Welcome() {
                     >
                         Mulai Eksplorasi →
                     </Link>
-                    <a
-                        href="https://gographql.project-n.site/query"
-                        target="_blank"
-                        rel="noopener noreferrer"
+                    <Link
+                        href="/playground"
                         className="rounded-lg border border-neutral-200 px-6 py-3 text-sm font-semibold text-neutral-600 transition-colors hover:bg-neutral-50 dark:border-zinc-700 dark:text-zinc-300 dark:hover:bg-zinc-900"
                     >
                         GraphQL Playground
-                    </a>
+                    </Link>
                 </div>
 
                 <div className="mt-16 flex items-center gap-8 border-t border-neutral-100 pt-8 dark:border-zinc-800">
