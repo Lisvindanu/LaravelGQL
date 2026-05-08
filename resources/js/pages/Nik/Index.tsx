@@ -116,7 +116,7 @@ export default function NikIndex({ nik, result }: Props) {
                             </dl>
                         )}
 
-                        {result.errors.length > 0 && (
+                        {(result.errors?.length ?? 0) > 0 && (
                             <ul className="mt-3 space-y-1">
                                 {result.errors.map((err, i) => (
                                     <li
