@@ -13,6 +13,7 @@ use App\Http\Controllers\WilayahController;
 use Illuminate\Support\Facades\Route;
 
 Route::inertia('/', 'welcome')->name('home');
+Route::inertia('/playground', 'Playground/Index')->name('playground');
 
 Route::get('/wilayah', [WilayahController::class, 'index'])->name('wilayah');
 Route::get('/cuaca', [CuacaController::class, 'index'])->name('cuaca');

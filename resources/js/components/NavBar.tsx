@@ -2,7 +2,10 @@ import { Link, usePage } from '@inertiajs/react';
 
 const navGroups = [
     {
-        items: [{ label: 'Beranda', href: '/' }],
+        items: [
+            { label: 'Beranda', href: '/' },
+            { label: 'Playground', href: '/playground' },
+        ],
     },
     {
         label: 'Data',
