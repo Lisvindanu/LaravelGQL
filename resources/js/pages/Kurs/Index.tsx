@@ -22,7 +22,7 @@ export default function KursIndex({ kurs }: Props) {
                         Kurs Valuta Asing
                     </h1>
                     <p className="mt-2 text-gray-500 dark:text-gray-400">
-                        Kurs transaksi Bank Indonesia
+                        Kurs valuta asing terhadap Rupiah · Diperbarui setiap jam
                     </p>
                 </div>
                 <span className="rounded-lg bg-gray-100 px-3 py-1.5 text-sm text-gray-600 dark:bg-gray-800 dark:text-gray-400">

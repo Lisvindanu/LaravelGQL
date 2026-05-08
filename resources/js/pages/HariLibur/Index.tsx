@@ -110,7 +110,7 @@ export default function HariLiburIndex({
                                 <span
                                     className={[
                                         'rounded-full px-3 py-1 text-xs font-medium',
-                                        item.jenis === 'Nasional'
+                                        item.jenis === 'nasional'
                                             ? 'bg-red-100 text-red-700 dark:bg-red-950 dark:text-red-400'
                                             : 'bg-blue-100 text-blue-700 dark:bg-blue-950 dark:text-blue-400',
                                     ].join(' ')}
