@@ -113,6 +113,10 @@ export default function NikIndex({ nik, result }: Props) {
                                                 value: result.kota,
                                             },
                                             {
+                                                label: 'Kecamatan',
+                                                value: result.kecamatan,
+                                            },
+                                            {
                                                 label: 'Tanggal Lahir',
                                                 value: result.tanggalLahir,
                                             },
