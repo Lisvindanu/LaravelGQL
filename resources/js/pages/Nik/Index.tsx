@@ -48,7 +48,9 @@ export default function NikIndex({ nik, result }: Props) {
                                 value={value}
                                 onChange={(e) =>
                                     setValue(
-                                        e.target.value.replace(/\D/g, '').slice(0, 16),
+                                        e.target.value
+                                            .replace(/\D/g, '')
+                                            .slice(0, 16),
                                     )
                                 }
                                 placeholder="Masukkan 16 digit NIK"
@@ -68,7 +70,7 @@ export default function NikIndex({ nik, result }: Props) {
                                             style={{ width: `${progress}%` }}
                                         />
                                     </div>
-                                    <span className="text-xs tabular-nums text-neutral-400">
+                                    <span className="text-xs text-neutral-400 tabular-nums">
                                         {value.length}/16
                                     </span>
                                 </div>
@@ -87,14 +89,14 @@ export default function NikIndex({ nik, result }: Props) {
                 {result && (
                     <div className="mt-4">
                         {result.valid ? (
-                            <div className="overflow-hidden rounded-3xl bg-neutral-900 text-white shadow-xl dark:bg-white dark:text-neutral-900">
+                            <div className="overflow-hidden rounded-3xl bg-neutral-900 text-white shadow-xl">
                                 <div className="p-6 sm:p-8">
                                     <div className="mb-6 flex items-start justify-between">
                                         <div>
                                             <p className="text-xs font-semibold tracking-widest text-neutral-400 uppercase dark:text-neutral-500">
                                                 NIK Valid
                                             </p>
-                                            <p className="mt-2 font-mono text-xl font-bold tracking-widest text-white dark:text-neutral-900">
+                                            <p className="mt-2 font-mono text-xl font-bold tracking-widest text-white">
                                                 {nik}
                                             </p>
                                         </div>
@@ -102,20 +104,32 @@ export default function NikIndex({ nik, result }: Props) {
                                     </div>
                                     <div className="grid grid-cols-2 gap-3">
                                         {[
-                                            { label: 'Provinsi', value: result.provinsi },
-                                            { label: 'Kota/Kabupaten', value: result.kota },
-                                            { label: 'Tanggal Lahir', value: result.tanggalLahir },
-                                            { label: 'Jenis Kelamin', value: result.jenisKelamin },
+                                            {
+                                                label: 'Provinsi',
+                                                value: result.provinsi,
+                                            },
+                                            {
+                                                label: 'Kota/Kabupaten',
+                                                value: result.kota,
+                                            },
+                                            {
+                                                label: 'Tanggal Lahir',
+                                                value: result.tanggalLahir,
+                                            },
+                                            {
+                                                label: 'Jenis Kelamin',
+                                                value: result.jenisKelamin,
+                                            },
                                         ].map(({ label, value: val }) => (
                                             <div
                                                 key={label}
-                                                className="rounded-xl bg-white/10 px-4 py-3 dark:bg-neutral-900/10"
+                                                className="rounded-xl bg-white/10 px-4 py-3 dark:bg-zinc-800"
                                             >
-                                                <p className="text-xs text-neutral-400 dark:text-neutral-500">
+                                                <p className="text-xs font-medium text-neutral-400 dark:text-zinc-400">
                                                     {label}
                                                 </p>
-                                                <p className="mt-1 font-semibold text-white dark:text-neutral-900">
-                                                    {val}
+                                                <p className="mt-1 font-semibold text-white dark:text-white">
+                                                    {val ?? '—'}
                                                 </p>
                                             </div>
                                         ))}
@@ -145,7 +159,9 @@ export default function NikIndex({ nik, result }: Props) {
                                                     key={i}
                                                     className="flex items-start gap-2 text-sm text-red-700 dark:text-red-400"
                                                 >
-                                                    <span className="mt-0.5 shrink-0">•</span>
+                                                    <span className="mt-0.5 shrink-0">
+                                                        •
+                                                    </span>
                                                     {err}
                                                 </li>
                                             ))}
