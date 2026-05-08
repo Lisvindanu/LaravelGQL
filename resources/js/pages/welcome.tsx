@@ -66,31 +66,25 @@ export default function Welcome() {
             <Head title="Beranda" />
 
             {/* Hero */}
-            <section className="relative py-16 text-center">
-                <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
-                    <div className="absolute top-0 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-red-100/60 blur-3xl dark:bg-red-900/20" />
-                </div>
-
-                <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-red-100 bg-red-50 px-4 py-1.5 text-sm font-medium text-red-600 dark:border-red-900 dark:bg-red-950/40 dark:text-red-400">
+            <section className="pt-4 pb-10">
+                <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-neutral-200 bg-white px-3 py-1 text-xs font-medium text-neutral-500 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-400">
                     <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-green-500" />
-                    API Aktif
+                    API Aktif · Open Source
                 </div>
 
-                <h1 className="mb-4 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl dark:text-gray-100">
+                <h1 className="mb-3 font-display text-5xl font-bold tracking-tight text-neutral-900 sm:text-6xl dark:text-white">
                     Indonesia
-                    <span className="bg-gradient-to-r from-red-600 to-red-400 bg-clip-text text-transparent dark:from-red-400 dark:to-red-300">
-                        QL
-                    </span>
+                    <span className="text-red-600">QL</span>
                 </h1>
-                <p className="mx-auto max-w-xl text-base text-gray-500 dark:text-gray-400">
+                <p className="max-w-lg text-base text-neutral-500 dark:text-zinc-400">
                     Data publik Indonesia dalam satu GraphQL API — wilayah,
                     cuaca, kurs, hari libur, NIK, kalender Jawa, dan terbilang.
                 </p>
 
-                <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+                <div className="mt-6 flex flex-wrap gap-3">
                     <Link
                         href="/wilayah"
-                        className="rounded-lg bg-red-600 px-5 py-2.5 text-sm font-medium text-white shadow-sm hover:bg-red-700 focus:ring-2 focus:ring-red-500 focus:outline-none"
+                        className="rounded-xl bg-neutral-900 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-neutral-700 dark:bg-white dark:text-neutral-900 dark:hover:bg-neutral-200"
                     >
                         Mulai Eksplorasi →
                     </Link>
@@ -98,45 +92,67 @@ export default function Welcome() {
                         href="https://gographql.project-n.site/query"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
+                        className="rounded-xl border border-neutral-200 bg-white px-5 py-2.5 text-sm font-semibold text-neutral-700 shadow-sm transition-colors hover:bg-neutral-50 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-300 dark:hover:bg-zinc-700"
                     >
                         GraphQL Playground
                     </a>
                 </div>
             </section>
 
+            {/* Stats row */}
+            <div className="mb-8 grid grid-cols-2 gap-3 sm:grid-cols-4">
+                {[
+                    { label: 'Provinsi', value: '34' },
+                    { label: 'Kota / Kab', value: '514' },
+                    { label: 'Kecamatan', value: '7.2k+' },
+                    { label: 'Kelurahan / Desa', value: '83k+' },
+                ].map((s) => (
+                    <div
+                        key={s.label}
+                        className="rounded-2xl border border-neutral-200/60 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900"
+                    >
+                        <p className="font-display text-2xl font-bold tracking-tight text-neutral-900 dark:text-white">
+                            {s.value}
+                        </p>
+                        <p className="mt-0.5 text-xs text-neutral-400">
+                            {s.label}
+                        </p>
+                    </div>
+                ))}
+            </div>
+
             {/* Feature cards */}
-            <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            <section className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                 {features.map((feature) => (
                     <Link
                         key={feature.href}
                         href={feature.href}
-                        className="group relative flex flex-col gap-3 rounded-xl border border-gray-200 bg-white p-5 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-red-200 hover:shadow-md dark:border-gray-800 dark:bg-gray-900 dark:hover:border-red-800/60"
+                        className="group flex flex-col gap-4 rounded-2xl border border-neutral-200/60 bg-white p-5 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md dark:border-zinc-800 dark:bg-zinc-900"
                     >
                         <div className="flex items-start justify-between">
-                            <span className="text-3xl leading-none">
+                            <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-neutral-100 text-xl dark:bg-zinc-800">
                                 {feature.icon}
                             </span>
-                            <span className="rounded-full bg-gray-100 px-2 py-0.5 text-xs text-gray-500 dark:bg-gray-800 dark:text-gray-400">
+                            <span className="rounded-full border border-neutral-100 px-2 py-0.5 text-xs text-neutral-400 dark:border-zinc-700 dark:text-zinc-500">
                                 {feature.badge}
                             </span>
                         </div>
                         <div>
-                            <h2 className="font-semibold text-gray-900 group-hover:text-red-600 dark:text-gray-100 dark:group-hover:text-red-400">
+                            <h2 className="font-display font-semibold text-neutral-900 dark:text-white">
                                 {feature.title}
                             </h2>
-                            <p className="mt-1 text-sm leading-relaxed text-gray-500 dark:text-gray-400">
+                            <p className="mt-1 text-sm leading-relaxed text-neutral-400 dark:text-zinc-500">
                                 {feature.description}
                             </p>
                         </div>
-                        <span className="mt-auto text-xs font-medium text-red-500 opacity-0 transition-opacity group-hover:opacity-100 dark:text-red-400">
+                        <span className="mt-auto text-xs font-medium text-neutral-900 opacity-0 transition-opacity group-hover:opacity-100 dark:text-white">
                             Lihat →
                         </span>
                     </Link>
                 ))}
             </section>
 
-            <footer className="mt-12 text-center text-xs text-gray-400 dark:text-gray-600">
+            <footer className="mt-12 text-xs text-neutral-400 dark:text-zinc-600">
                 Open GraphQL API · Data publik Indonesia
             </footer>
         </Layout>

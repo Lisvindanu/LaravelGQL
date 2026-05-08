@@ -25,45 +25,49 @@ export default function NikIndex({ nik, result }: Props) {
             <Head title="Validasi NIK" />
 
             <div className="mb-6">
-                <h1 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-100">
+                <h1 className="font-display text-3xl font-bold tracking-tight text-neutral-900 dark:text-white">
                     Validasi NIK
                 </h1>
-                <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                <p className="mt-1 text-sm text-neutral-500 dark:text-zinc-400">
                     Validasi Nomor Induk Kependudukan 16 digit
                 </p>
             </div>
 
             <div className="mx-auto max-w-xl">
-                <div className="rounded-2xl border border-gray-200/60 bg-white p-5 shadow-sm dark:border-gray-800 dark:bg-gray-900">
+                <div className="rounded-2xl border border-neutral-200/60 bg-white p-5 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
                     <form onSubmit={handleSubmit} className="space-y-4">
                         <div>
-                            <label className="mb-2 block text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
+                            <label className="mb-2 block text-xs font-semibold tracking-wider text-neutral-400 uppercase dark:text-zinc-500">
                                 Nomor Induk Kependudukan
                             </label>
                             <input
                                 type="text"
                                 value={value}
                                 onChange={(e) =>
-                                    setValue(e.target.value.replace(/\D/g, '').slice(0, 16))
+                                    setValue(
+                                        e.target.value
+                                            .replace(/\D/g, '')
+                                            .slice(0, 16),
+                                    )
                                 }
                                 placeholder="16 digit NIK"
                                 maxLength={16}
-                                className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 font-mono text-base tracking-widest transition-colors focus:border-red-400 focus:ring-2 focus:ring-red-100 focus:outline-none dark:border-gray-700 dark:bg-gray-800/50 dark:text-gray-100 dark:placeholder-gray-600"
+                                className="w-full rounded-xl border border-neutral-200 bg-white px-4 py-3 font-mono text-base tracking-widest transition-colors focus:border-neutral-400 focus:ring-2 focus:ring-neutral-100 focus:outline-none dark:border-zinc-700 dark:bg-zinc-800/50 dark:text-white dark:placeholder-zinc-600"
                             />
                             {value.length > 0 && (
                                 <div className="mt-2 flex items-center gap-3">
-                                    <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-gray-100 dark:bg-gray-800">
+                                    <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-neutral-100 dark:bg-zinc-800">
                                         <div
                                             className={[
                                                 'h-full rounded-full transition-all duration-300',
                                                 value.length === 16
                                                     ? 'bg-green-500'
-                                                    : 'bg-red-400',
+                                                    : 'bg-neutral-400',
                                             ].join(' ')}
                                             style={{ width: `${progress}%` }}
                                         />
                                     </div>
-                                    <span className="text-xs text-gray-400">
+                                    <span className="text-xs text-neutral-400">
                                         {value.length}/16
                                     </span>
                                 </div>
@@ -72,7 +76,7 @@ export default function NikIndex({ nik, result }: Props) {
                         <button
                             type="submit"
                             disabled={value.length !== 16}
-                            className="w-full rounded-xl bg-red-600 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-red-700 focus:ring-2 focus:ring-red-400 focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-40"
+                            className="w-full rounded-xl bg-neutral-900 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-neutral-700 focus:ring-2 focus:ring-neutral-400 focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-40 dark:bg-white dark:text-neutral-900 dark:hover:bg-neutral-200"
                         >
                             Validasi NIK
                         </button>
@@ -86,7 +90,7 @@ export default function NikIndex({ nik, result }: Props) {
                             result.valid
                                 ? 'border-green-200/60 dark:border-green-900/60'
                                 : 'border-red-200/60 dark:border-red-900/60',
-                            'bg-white dark:bg-gray-900',
+                            'bg-white dark:bg-zinc-900',
                         ].join(' ')}
                     >
                         <div
@@ -110,9 +114,10 @@ export default function NikIndex({ nik, result }: Props) {
                                                 : 'text-red-800 dark:text-red-300',
                                         ].join(' ')}
                                     >
-                                        NIK {result.valid ? 'Valid' : 'Tidak Valid'}
+                                        NIK{' '}
+                                        {result.valid ? 'Valid' : 'Tidak Valid'}
                                     </p>
-                                    <p className="font-mono text-sm text-gray-500 dark:text-gray-400">
+                                    <p className="font-mono text-sm text-neutral-500 dark:text-zinc-400">
                                         {nik}
                                     </p>
                                 </div>
@@ -123,19 +128,31 @@ export default function NikIndex({ nik, result }: Props) {
                             <div className="p-5">
                                 <dl className="grid grid-cols-2 gap-3">
                                     {[
-                                        { label: 'Provinsi', value: result.provinsi },
-                                        { label: 'Kota/Kabupaten', value: result.kota },
-                                        { label: 'Tanggal Lahir', value: result.tanggalLahir },
-                                        { label: 'Jenis Kelamin', value: result.jenisKelamin },
+                                        {
+                                            label: 'Provinsi',
+                                            value: result.provinsi,
+                                        },
+                                        {
+                                            label: 'Kota/Kabupaten',
+                                            value: result.kota,
+                                        },
+                                        {
+                                            label: 'Tanggal Lahir',
+                                            value: result.tanggalLahir,
+                                        },
+                                        {
+                                            label: 'Jenis Kelamin',
+                                            value: result.jenisKelamin,
+                                        },
                                     ].map(({ label, value: val }) => (
                                         <div
                                             key={label}
-                                            className="rounded-xl bg-gray-50 px-4 py-3 dark:bg-gray-800/50"
+                                            className="rounded-xl bg-neutral-50 px-4 py-3 dark:bg-zinc-800/50"
                                         >
-                                            <dt className="text-xs text-gray-400 dark:text-gray-500">
+                                            <dt className="text-xs text-neutral-400 dark:text-zinc-500">
                                                 {label}
                                             </dt>
-                                            <dd className="mt-1 font-semibold text-gray-900 dark:text-gray-100">
+                                            <dd className="mt-1 font-semibold text-neutral-900 dark:text-white">
                                                 {val}
                                             </dd>
                                         </div>
@@ -152,7 +169,9 @@ export default function NikIndex({ nik, result }: Props) {
                                             key={i}
                                             className="flex items-start gap-2 text-sm text-red-700 dark:text-red-400"
                                         >
-                                            <span className="mt-0.5 shrink-0">•</span>
+                                            <span className="mt-0.5 shrink-0">
+                                                •
+                                            </span>
                                             {err}
                                         </li>
                                     ))}
