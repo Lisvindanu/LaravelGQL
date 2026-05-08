@@ -39,7 +39,7 @@ export default function CuacaIndex({
                     Prakiraan Cuaca
                 </h1>
                 <p className="mt-2 text-gray-500 dark:text-gray-400">
-                    Data cuaca real-time dari BMKG per kota di Indonesia
+                    Data cuaca real-time per kota di Indonesia
                 </p>
             </div>
 
@@ -130,14 +130,13 @@ export default function CuacaIndex({
                                             {p.cuaca}
                                         </td>
                                         <td className="px-4 py-3 text-right text-gray-700 dark:text-gray-300">
-                                            {p.suhu}°C
+                                            {p.suhu}
                                         </td>
                                         <td className="px-4 py-3 text-right text-gray-700 dark:text-gray-300">
-                                            {p.kelembapan}%
+                                            {p.kelembapan}
                                         </td>
                                         <td className="px-4 py-3 text-right text-gray-700 dark:text-gray-300">
-                                            {p.kecepatanAngin} km/h{' '}
-                                            {p.arahAngin}
+                                            {p.kecepatanAngin} {p.arahAngin}
                                         </td>
                                     </tr>
                                 ))}

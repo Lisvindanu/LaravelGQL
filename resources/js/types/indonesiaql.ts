@@ -23,10 +23,10 @@ export interface WilayahResult {
 
 export interface Prakiraan {
     waktu: string;
-    suhu: number;
-    kelembapan: number;
+    suhu: string;
+    kelembapan: string;
     cuaca: string;
-    kecepatanAngin: number;
+    kecepatanAngin: string;
     arahAngin: string;
 }
 
@@ -51,20 +51,23 @@ export interface HariLiburItem {
 
 export interface NIKResult {
     valid: boolean;
+    nik?: string;
     provinsi: string;
     kota: string;
+    kecamatan?: string;
     tanggalLahir: string;
     jenisKelamin: string;
     errors: string[];
 }
 
 export interface KalenderJawaResult {
+    tanggalMasehi: string;
     hari: string;
     pasaran: string;
     wuku: string;
-    tahunJawa: string;
+    tahunJawa: number;
     namaWindu: string;
-    tahunDalamWindu: number;
+    tahunDalamWindu: string;
 }
 
 export interface TerbilangResult {

@@ -103,7 +103,7 @@ class IndonesiaQLService
     public function validasiNIK(string $nik): ?array
     {
         return $this->gql(
-            'query ValidasiNIK($nik: String!) { validasiNIK(nik: $nik) { valid provinsi kota tanggalLahir jenisKelamin errors } }',
+            'query ValidasiNIK($nik: String!) { validasiNIK(nik: $nik) { valid nik provinsi kota kecamatan tanggalLahir jenisKelamin errors } }',
             ['nik' => $nik]
         )['validasiNIK'] ?? null;
     }
@@ -111,15 +111,15 @@ class IndonesiaQLService
     public function getKalenderJawa(string $tanggal): ?array
     {
         return $this->gql(
-            'query KalenderJawa($tanggal: String!) { kalenderJawa(tanggal: $tanggal) { hari pasaran wuku tahunJawa namaWindu tahunDalamWindu } }',
+            'query KalenderJawa($tanggal: String!) { kalenderJawa(tanggal: $tanggal) { tanggalMasehi hari pasaran wuku tahunJawa namaWindu tahunDalamWindu } }',
             ['tanggal' => $tanggal]
         )['kalenderJawa'] ?? null;
     }
 
-    public function getTerbilang(int $angka): ?array
+    public function getTerbilang(float $angka): ?array
     {
         return $this->gql(
-            'query Terbilang($angka: Int!) { terbilang(angka: $angka) { angka terbilang } }',
+            'query Terbilang($angka: Float!) { terbilang(angka: $angka) { angka terbilang } }',
             ['angka' => $angka]
         )['terbilang'] ?? null;
     }
