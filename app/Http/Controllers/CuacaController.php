@@ -16,20 +16,37 @@ class CuacaController extends Controller
     public function index(Request $request): Response
     {
         $provinsiKode = $request->string('provinsi_kode')->toString();
-        $kota = $request->string('kota')->toString();
+        $kotaNama = $request->string('kota')->toString();
+        $kotaKode = $request->string('kota_kode')->toString();
+        $kecamatanNama = $request->string('kecamatan')->toString();
 
         $kotaList = [];
+        $kecamatanList = [];
+
         if ($provinsiKode) {
             $provinsiDetail = $this->service->getProvinsi($provinsiKode);
             $kotaList = $provinsiDetail['kota'] ?? [];
         }
 
+        if ($kotaKode) {
+            $kotaDetail = $this->service->getKota($kotaKode);
+            $kecamatanList = array_map(
+                fn ($k) => ['kode' => $k['kode'], 'nama' => $k['nama']],
+                $kotaDetail['kecamatan'] ?? []
+            );
+        }
+
+        $cuacaQuery = $kecamatanNama ?: $kotaNama;
+
         return Inertia::render('Cuaca/Index', [
             'provinsiList' => $this->service->getProvinsiList(),
             'kotaList' => $kotaList,
-            'cuaca' => ($provinsiKode && $kota) ? $this->service->getCuaca($provinsiKode, $kota) : null,
+            'kecamatanList' => $kecamatanList,
+            'cuaca' => $cuacaQuery ? $this->service->getCuaca($provinsiKode, $cuacaQuery) : null,
             'selectedProvinsi' => $provinsiKode,
-            'selectedKota' => $kota,
+            'selectedKota' => $kotaNama,
+            'selectedKotaKode' => $kotaKode,
+            'selectedKecamatan' => $kecamatanNama,
         ]);
     }
 }
