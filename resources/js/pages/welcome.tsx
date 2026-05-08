@@ -5,49 +5,56 @@ const features = [
     {
         href: '/wilayah',
         title: 'Wilayah',
-        description: 'Jelajahi 34 provinsi, 514 kota, dan ribuan kecamatan Indonesia. Dilengkapi pencarian cepat.',
+        description:
+            'Jelajahi 34 provinsi, 514 kota, dan ribuan kecamatan Indonesia. Dilengkapi pencarian cepat.',
         icon: '🗺️',
         badge: '514 kota',
     },
     {
         href: '/cuaca',
         title: 'Cuaca',
-        description: 'Prakiraan cuaca real-time 50+ kota Indonesia — suhu, kelembapan, kecepatan & arah angin.',
+        description:
+            'Prakiraan cuaca real-time 50+ kota Indonesia — suhu, kelembapan, kecepatan & arah angin.',
         icon: '🌤️',
         badge: 'Real-time',
     },
     {
         href: '/kurs',
         title: 'Kurs Valuta',
-        description: 'Kurs beli, jual, dan tengah untuk 14 mata uang asing terhadap Rupiah. Diperbarui setiap jam.',
+        description:
+            'Kurs beli, jual, dan tengah untuk 14 mata uang asing terhadap Rupiah. Diperbarui setiap jam.',
         icon: '💱',
         badge: '14 mata uang',
     },
     {
         href: '/hari-libur',
         title: 'Hari Libur',
-        description: 'Daftar hari libur nasional dan cuti bersama Indonesia tahun 2024–2026.',
+        description:
+            'Daftar hari libur nasional dan cuti bersama Indonesia tahun 2024–2026.',
         icon: '📅',
         badge: '2024–2026',
     },
     {
         href: '/nik',
         title: 'Validasi NIK',
-        description: 'Validasi NIK 16 digit — cek provinsi, kota, kecamatan, tanggal lahir, dan jenis kelamin.',
+        description:
+            'Validasi NIK 16 digit — cek provinsi, kota, kecamatan, tanggal lahir, dan jenis kelamin.',
         icon: '🪪',
         badge: '16 digit',
     },
     {
         href: '/kalender-jawa',
         title: 'Kalender Jawa',
-        description: 'Konversi tanggal Masehi ke penanggalan Jawa — hari, pasaran, wuku, dan tahun Jawa.',
+        description:
+            'Konversi tanggal Masehi ke penanggalan Jawa — hari, pasaran, wuku, dan tahun Jawa.',
         icon: '🗓️',
         badge: 'Konversi',
     },
     {
         href: '/terbilang',
         title: 'Terbilang',
-        description: 'Konversi angka ke bentuk terbilang Bahasa Indonesia — berguna untuk dokumen keuangan.',
+        description:
+            'Konversi angka ke bentuk terbilang Bahasa Indonesia — berguna untuk dokumen keuangan.',
         icon: '🔢',
         badge: 'Angka → Teks',
     },
@@ -61,7 +68,7 @@ export default function Welcome() {
             {/* Hero */}
             <section className="relative py-16 text-center">
                 <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
-                    <div className="absolute left-1/2 top-0 h-72 w-72 -translate-x-1/2 rounded-full bg-red-100/60 blur-3xl dark:bg-red-900/20" />
+                    <div className="absolute top-0 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-red-100/60 blur-3xl dark:bg-red-900/20" />
                 </div>
 
                 <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-red-100 bg-red-50 px-4 py-1.5 text-sm font-medium text-red-600 dark:border-red-900 dark:bg-red-950/40 dark:text-red-400">
@@ -76,8 +83,8 @@ export default function Welcome() {
                     </span>
                 </h1>
                 <p className="mx-auto max-w-xl text-base text-gray-500 dark:text-gray-400">
-                    Data publik Indonesia dalam satu GraphQL API — wilayah, cuaca, kurs,
-                    hari libur, NIK, kalender Jawa, dan terbilang.
+                    Data publik Indonesia dalam satu GraphQL API — wilayah,
+                    cuaca, kurs, hari libur, NIK, kalender Jawa, dan terbilang.
                 </p>
 
                 <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
@@ -107,7 +114,9 @@ export default function Welcome() {
                         className="group relative flex flex-col gap-3 rounded-xl border border-gray-200 bg-white p-5 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-red-200 hover:shadow-md dark:border-gray-800 dark:bg-gray-900 dark:hover:border-red-800/60"
                     >
                         <div className="flex items-start justify-between">
-                            <span className="text-3xl leading-none">{feature.icon}</span>
+                            <span className="text-3xl leading-none">
+                                {feature.icon}
+                            </span>
                             <span className="rounded-full bg-gray-100 px-2 py-0.5 text-xs text-gray-500 dark:bg-gray-800 dark:text-gray-400">
                                 {feature.badge}
                             </span>

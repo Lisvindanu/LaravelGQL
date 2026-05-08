@@ -26,57 +26,62 @@ export default function TerbilangIndex({ angka, result }: Props) {
         <Layout>
             <Head title="Terbilang" />
 
-            <div className="mb-8">
-                <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
+            <div className="mb-6">
+                <h1 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-100">
                     Terbilang
                 </h1>
-                <p className="mt-2 text-gray-500 dark:text-gray-400">
+                <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
                     Konversi angka ke bentuk kata dalam bahasa Indonesia
                 </p>
             </div>
 
             <div className="mx-auto max-w-lg">
-                <form onSubmit={handleSubmit} className="mb-6">
-                    <div className="flex gap-2">
-                        <input
-                            type="text"
-                            inputMode="numeric"
-                            value={value}
-                            onChange={(e) =>
-                                setValue(e.target.value.replace(/\D/g, ''))
-                            }
-                            placeholder="Masukkan angka, contoh: 75000000"
-                            className="flex-1 rounded-lg border border-gray-300 px-4 py-2.5 text-sm focus:border-red-400 focus:ring-2 focus:ring-red-100 focus:outline-none dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100"
-                        />
+                <div className="rounded-2xl border border-gray-200/60 bg-white p-5 shadow-sm dark:border-gray-800 dark:bg-gray-900">
+                    <form onSubmit={handleSubmit} className="space-y-3">
+                        <div>
+                            <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
+                                Angka
+                            </label>
+                            <input
+                                type="text"
+                                inputMode="numeric"
+                                value={value}
+                                onChange={(e) =>
+                                    setValue(e.target.value.replace(/\D/g, ''))
+                                }
+                                placeholder="Contoh: 75000000"
+                                className="w-full rounded-xl border border-gray-200 bg-white px-4 py-2.5 text-sm transition-colors focus:border-red-400 focus:ring-2 focus:ring-red-100 focus:outline-none dark:border-gray-700 dark:bg-gray-800/50 dark:text-gray-100 dark:placeholder-gray-600"
+                            />
+                            {value && (
+                                <p className="mt-1.5 text-sm font-medium text-gray-500 dark:text-gray-400">
+                                    = {formatRupiah(parseInt(value, 10))}
+                                </p>
+                            )}
+                        </div>
                         <button
                             type="submit"
                             disabled={!value}
-                            className="rounded-lg bg-red-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-red-700 focus:ring-2 focus:ring-red-500 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+                            className="w-full rounded-xl bg-red-600 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-red-700 focus:ring-2 focus:ring-red-400 focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-40"
                         >
-                            Konversi
+                            Konversi ke Terbilang
                         </button>
-                    </div>
-                    {value && (
-                        <p className="mt-2 text-sm text-gray-400">
-                            = {formatRupiah(parseInt(value, 10))}
-                        </p>
-                    )}
-                </form>
+                    </form>
+                </div>
 
                 {result && (
-                    <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-gray-900">
-                        <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                            Angka
-                        </p>
-                        <p className="mb-4 text-2xl font-bold text-gray-900 tabular-nums dark:text-gray-100">
-                            {formatRupiah(result.angka)}
-                        </p>
-                        <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                            Terbilang
-                        </p>
-                        <p className="rounded-lg bg-gray-50 p-4 text-lg font-medium text-gray-800 capitalize dark:bg-gray-800 dark:text-gray-200">
-                            {result.terbilang}
-                        </p>
+                    <div className="mt-4 overflow-hidden rounded-2xl border border-gray-200/60 bg-white shadow-sm dark:border-gray-800 dark:bg-gray-900">
+                        <div className="border-b border-gray-100 px-6 py-4 dark:border-gray-800">
+                            <p className="text-xs text-gray-400 dark:text-gray-500">Angka</p>
+                            <p className="mt-0.5 text-3xl font-bold tabular-nums text-gray-900 dark:text-gray-100">
+                                {formatRupiah(result.angka)}
+                            </p>
+                        </div>
+                        <div className="p-6">
+                            <p className="text-xs text-gray-400 dark:text-gray-500">Terbilang</p>
+                            <p className="mt-2 text-xl font-semibold capitalize leading-relaxed text-gray-900 dark:text-gray-100">
+                                {result.terbilang}
+                            </p>
+                        </div>
                     </div>
                 )}
             </div>

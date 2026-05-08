@@ -33,7 +33,9 @@ export default function NavBar() {
                         <span className="bg-gradient-to-r from-red-600 to-red-500 bg-clip-text text-transparent dark:from-red-400 dark:to-red-300">
                             Indonesia
                         </span>
-                        <span className="text-gray-900 dark:text-gray-100">QL</span>
+                        <span className="text-gray-900 dark:text-gray-100">
+                            QL
+                        </span>
                     </Link>
 
                     {/* Desktop nav */}
@@ -49,7 +51,9 @@ export default function NavBar() {
                                         : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-100',
                                 ].join(' ')}
                             >
-                                <span className="text-sm leading-none">{item.icon}</span>
+                                <span className="text-sm leading-none">
+                                    {item.icon}
+                                </span>
                                 {item.label}
                             </Link>
                         ))}
@@ -57,17 +61,37 @@ export default function NavBar() {
 
                     {/* Mobile hamburger */}
                     <button
-                        className="flex h-9 w-9 items-center justify-center rounded-lg text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800 md:hidden"
+                        className="flex h-9 w-9 items-center justify-center rounded-lg text-gray-600 hover:bg-gray-100 md:hidden dark:text-gray-400 dark:hover:bg-gray-800"
                         onClick={() => setOpen((v) => !v)}
                         aria-label="Toggle menu"
                     >
                         {open ? (
-                            <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                            <svg
+                                className="h-5 w-5"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                            >
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth={2}
+                                    d="M6 18L18 6M6 6l12 12"
+                                />
                             </svg>
                         ) : (
-                            <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                            <svg
+                                className="h-5 w-5"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                            >
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth={2}
+                                    d="M4 6h16M4 12h16M4 18h16"
+                                />
                             </svg>
                         )}
                     </button>
@@ -76,7 +100,7 @@ export default function NavBar() {
 
             {/* Mobile slide-down menu */}
             {open && (
-                <div className="border-t border-gray-100 bg-white px-4 pb-4 dark:border-gray-800 dark:bg-gray-900 md:hidden">
+                <div className="border-t border-gray-100 bg-white px-4 pb-4 md:hidden dark:border-gray-800 dark:bg-gray-900">
                     <div className="grid grid-cols-2 gap-1 pt-3">
                         {navItems.map((item) => (
                             <Link
