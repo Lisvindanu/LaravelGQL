@@ -12,6 +12,7 @@ interface Props {
     kotaList: Kota[];
     kecamatanList: KecamatanSimple[];
     cuaca: CuacaData | null;
+    defaultCities: CuacaData[];
     selectedProvinsi: string;
     selectedKota: string;
     selectedKotaKode: string;
@@ -32,10 +33,12 @@ const weatherEmoji = (desc: string): string => {
 
 const weatherBg = (desc: string): string => {
     const d = desc.toLowerCase();
-    if (d.includes('badai') || d.includes('petir')) return 'from-slate-600 to-slate-800';
+    if (d.includes('badai') || d.includes('petir'))
+        return 'from-slate-600 to-slate-800';
     if (d.includes('hujan')) return 'from-blue-500 to-indigo-700';
     if (d.includes('kabut')) return 'from-slate-400 to-slate-600';
-    if (d.includes('mendung') || d.includes('berawan tebal')) return 'from-slate-400 to-blue-500';
+    if (d.includes('mendung') || d.includes('berawan tebal'))
+        return 'from-slate-400 to-blue-500';
     if (d.includes('berawan')) return 'from-sky-400 to-blue-500';
     return 'from-sky-400 to-blue-600';
 };
@@ -45,6 +48,7 @@ export default function CuacaIndex({
     kotaList,
     kecamatanList,
     cuaca,
+    defaultCities,
     selectedProvinsi,
     selectedKota,
     selectedKotaKode,
@@ -74,7 +78,9 @@ export default function CuacaIndex({
     };
 
     const currentCondition = cuaca?.prakiraan[0];
-    const bg = currentCondition ? weatherBg(currentCondition.cuaca) : 'from-sky-400 to-blue-600';
+    const bg = currentCondition
+        ? weatherBg(currentCondition.cuaca)
+        : 'from-sky-400 to-blue-600';
 
     return (
         <Layout>
@@ -100,7 +106,9 @@ export default function CuacaIndex({
                         </label>
                         <select
                             value={selectedProvinsi}
-                            onChange={(e) => handleProvinsiChange(e.target.value)}
+                            onChange={(e) =>
+                                handleProvinsiChange(e.target.value)
+                            }
                             className="w-full rounded-xl border border-neutral-200 bg-white px-4 py-2.5 text-sm transition-colors focus:border-sky-400 focus:ring-2 focus:ring-sky-100 focus:outline-none dark:border-zinc-700 dark:bg-zinc-800/50 dark:text-white"
                         >
                             <option value="">-- Pilih Provinsi --</option>
@@ -132,13 +140,15 @@ export default function CuacaIndex({
                     <div>
                         <label className="mb-1.5 block text-xs font-semibold tracking-wider text-neutral-400 uppercase dark:text-zinc-500">
                             Kecamatan{' '}
-                            <span className="normal-case font-normal text-neutral-300 dark:text-zinc-600">
+                            <span className="font-normal text-neutral-300 normal-case dark:text-zinc-600">
                                 (opsional)
                             </span>
                         </label>
                         <select
                             value={selectedKecamatan}
-                            onChange={(e) => handleKecamatanChange(e.target.value)}
+                            onChange={(e) =>
+                                handleKecamatanChange(e.target.value)
+                            }
                             disabled={kecamatanList.length === 0}
                             className="w-full rounded-xl border border-neutral-200 bg-white px-4 py-2.5 text-sm transition-colors focus:border-sky-400 focus:ring-2 focus:ring-sky-100 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 dark:border-zinc-700 dark:bg-zinc-800/50 dark:text-white"
                         >
@@ -164,7 +174,7 @@ export default function CuacaIndex({
                                 {weatherEmoji(currentCondition.cuaca)}
                             </span>
                             <div>
-                                <p className="font-display text-6xl font-bold leading-none">
+                                <p className="font-display text-6xl leading-none font-bold">
                                     {currentCondition.suhu}
                                 </p>
                                 <p className="mt-2 text-lg text-white/80">
@@ -189,7 +199,8 @@ export default function CuacaIndex({
                                 className="w-32 flex-none rounded-2xl border border-neutral-200/60 bg-white p-4 shadow-sm dark:border-zinc-800 dark:bg-zinc-900"
                             >
                                 <p className="truncate text-xs text-neutral-400 dark:text-zinc-500">
-                                    {p.waktu.split('T')[1]?.slice(0, 5) ?? p.waktu}
+                                    {p.waktu.split('T')[1]?.slice(0, 5) ??
+                                        p.waktu}
                                 </p>
                                 <p className="mt-2 text-2xl leading-none">
                                     {weatherEmoji(p.cuaca)}
@@ -216,16 +227,55 @@ export default function CuacaIndex({
                 </div>
             )}
 
-            {selectedProvinsi && (selectedKota || selectedKecamatan) && !cuaca && (
-                <div className="rounded-2xl border border-neutral-200/60 bg-white py-16 text-center shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
-                    <p className="text-4xl">🌤️</p>
-                    <p className="mt-3 font-medium text-neutral-500 dark:text-zinc-400">
-                        Data cuaca tidak tersedia untuk lokasi ini
+            {selectedProvinsi &&
+                (selectedKota || selectedKecamatan) &&
+                !cuaca && (
+                    <div className="rounded-2xl border border-neutral-200/60 bg-white py-16 text-center shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
+                        <p className="text-4xl">🌤️</p>
+                        <p className="mt-3 font-medium text-neutral-500 dark:text-zinc-400">
+                            Data cuaca tidak tersedia untuk lokasi ini
+                        </p>
+                    </div>
+                )}
+
+            {!selectedProvinsi && defaultCities.length > 0 && (
+                <div>
+                    <p className="mb-4 text-xs font-semibold tracking-wider text-neutral-400 uppercase dark:text-zinc-500">
+                        10 Kota Besar Indonesia
                     </p>
+                    <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
+                        {defaultCities.map((city) => {
+                            const now = city.prakiraan[0];
+                            if (!now) return null;
+                            const cityBg = weatherBg(now.cuaca);
+                            return (
+                                <div
+                                    key={city.kota}
+                                    className={`overflow-hidden rounded-2xl bg-gradient-to-br ${cityBg} p-4 text-white shadow-sm`}
+                                >
+                                    <p className="truncate text-xs font-semibold text-white/70">
+                                        {city.kota}
+                                    </p>
+                                    <p className="mt-2 text-4xl leading-none">
+                                        {weatherEmoji(now.cuaca)}
+                                    </p>
+                                    <p className="mt-2 font-display text-3xl font-bold leading-none">
+                                        {now.suhu}
+                                    </p>
+                                    <p className="mt-1 line-clamp-2 text-xs text-white/70">
+                                        {now.cuaca}
+                                    </p>
+                                    <p className="mt-2 text-xs text-white/50">
+                                        💧 {now.kelembapan}
+                                    </p>
+                                </div>
+                            );
+                        })}
+                    </div>
                 </div>
             )}
 
-            {!selectedProvinsi && (
+            {!selectedProvinsi && defaultCities.length === 0 && (
                 <div className="rounded-2xl border border-dashed border-sky-200 bg-sky-50/50 py-20 text-center dark:border-sky-900/30 dark:bg-sky-950/10">
                     <p className="text-5xl">🌏</p>
                     <p className="mt-4 font-display text-lg font-semibold text-neutral-700 dark:text-zinc-300">

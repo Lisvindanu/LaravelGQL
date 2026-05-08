@@ -84,6 +84,40 @@ class IndonesiaQLService
         );
     }
 
+    public function getDefaultCuaca(): array
+    {
+        return Cache::remember('cuaca_default_cities', 1800, function () {
+            $cities = [
+                ['alias' => 'c1',  'prov' => '31', 'kota' => 'Jakarta'],
+                ['alias' => 'c2',  'prov' => '35', 'kota' => 'Surabaya'],
+                ['alias' => 'c3',  'prov' => '32', 'kota' => 'Bandung'],
+                ['alias' => 'c4',  'prov' => '12', 'kota' => 'Medan'],
+                ['alias' => 'c5',  'prov' => '33', 'kota' => 'Semarang'],
+                ['alias' => 'c6',  'prov' => '73', 'kota' => 'Makassar'],
+                ['alias' => 'c7',  'prov' => '16', 'kota' => 'Palembang'],
+                ['alias' => 'c8',  'prov' => '34', 'kota' => 'Yogyakarta'],
+                ['alias' => 'c9',  'prov' => '51', 'kota' => 'Denpasar'],
+                ['alias' => 'c10', 'prov' => '64', 'kota' => 'Balikpapan'],
+            ];
+
+            $parts = array_map(
+                fn ($c) => "{$c['alias']}: cuaca(provinsiKode: \"{$c['prov']}\", kota: \"{$c['kota']}\") { kota prakiraan { waktu suhu cuaca kelembapan kecepatanAngin } }",
+                $cities
+            );
+
+            $data = $this->gql('{ '.implode(' ', $parts).' }');
+
+            $result = [];
+            foreach ($cities as $c) {
+                if (! empty($data[$c['alias']])) {
+                    $result[] = $data[$c['alias']];
+                }
+            }
+
+            return $result;
+        });
+    }
+
     public function getKurs(): array
     {
         return Cache::remember(

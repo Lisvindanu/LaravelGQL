@@ -43,6 +43,7 @@ class CuacaController extends Controller
             'kotaList' => $kotaList,
             'kecamatanList' => $kecamatanList,
             'cuaca' => $cuacaQuery ? $this->service->getCuaca($provinsiKode, $cuacaQuery) : null,
+            'defaultCities' => ! $cuacaQuery ? $this->service->getDefaultCuaca() : [],
             'selectedProvinsi' => $provinsiKode,
             'selectedKota' => $kotaNama,
             'selectedKotaKode' => $kotaKode,
