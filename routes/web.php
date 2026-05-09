@@ -1,16 +1,21 @@
 <?php
 
+use App\Http\Controllers\BpjsController;
 use App\Http\Controllers\CuacaController;
 use App\Http\Controllers\GempaController;
 use App\Http\Controllers\HargaBBMController;
 use App\Http\Controllers\HariLiburController;
+use App\Http\Controllers\InflasiController;
 use App\Http\Controllers\KalenderHijriyahController;
 use App\Http\Controllers\KalenderJawaController;
 use App\Http\Controllers\KodeBankController;
 use App\Http\Controllers\KodePosController;
+use App\Http\Controllers\KrlController;
 use App\Http\Controllers\KursController;
 use App\Http\Controllers\NikController;
 use App\Http\Controllers\PlatNomorController;
+use App\Http\Controllers\RekeningController;
+use App\Http\Controllers\SahamController;
 use App\Http\Controllers\TerbilangController;
 use App\Http\Controllers\WaktuSholatController;
 use App\Http\Controllers\WilayahController;
@@ -33,3 +38,8 @@ Route::get('/gempa', [GempaController::class, 'index'])->name('gempa');
 Route::get('/kode-pos', [KodePosController::class, 'index'])->name('kode-pos');
 Route::get('/kalender-hijriyah', [KalenderHijriyahController::class, 'index'])->name('kalender-hijriyah');
 Route::get('/harga-bbm', [HargaBBMController::class, 'index'])->name('harga-bbm');
+Route::get('/saham', [SahamController::class, 'index'])->name('saham');
+Route::get('/bpjs', [BpjsController::class, 'index'])->name('bpjs');
+Route::get('/rekening', [RekeningController::class, 'index'])->name('rekening');
+Route::get('/krl', [KrlController::class, 'index'])->name('krl');
+Route::get('/inflasi', [InflasiController::class, 'index'])->name('inflasi');

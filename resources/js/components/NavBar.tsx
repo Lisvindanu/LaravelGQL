@@ -16,12 +16,16 @@ const navGroups = [
             { label: 'Hari Libur', href: '/hari-libur' },
             { label: 'Gempa Bumi', href: '/gempa' },
             { label: 'Harga BBM', href: '/harga-bbm' },
+            { label: 'IHSG', href: '/saham' },
+            { label: 'Inflasi', href: '/inflasi' },
+            { label: 'Jadwal KRL', href: '/krl' },
         ],
     },
     {
         label: 'Utilitas',
         items: [
             { label: 'Validasi NIK', href: '/nik' },
+            { label: 'Validasi Rekening', href: '/rekening' },
             { label: 'Kalender Jawa', href: '/kalender-jawa' },
             { label: 'Kalender Hijriyah', href: '/kalender-hijriyah' },
             { label: 'Terbilang', href: '/terbilang' },
@@ -34,6 +38,7 @@ const navGroups = [
             { label: 'Plat Nomor', href: '/plat-nomor' },
             { label: 'Waktu Sholat', href: '/waktu-sholat' },
             { label: 'Kode Pos', href: '/kode-pos' },
+            { label: 'Iuran BPJS', href: '/bpjs' },
         ],
     },
 ];

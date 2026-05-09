@@ -150,3 +150,55 @@ export interface HargaBBMItem {
     satuan: string;
     jenis: string;
 }
+
+export interface IHSGResult {
+    symbol: string;
+    nama: string;
+    harga: number;
+    perubahan: number;
+    persentasePerubahan: number;
+    open: number;
+    high: number;
+    low: number;
+    volume: number;
+    waktu: string;
+}
+
+export interface IuranBpjsItem {
+    kelas: string;
+    segmen: string;
+    nominal: number;
+    keterangan: string;
+}
+
+export interface ValidasiRekeningResult {
+    valid: boolean;
+    bank: string;
+    noRekening: string;
+    panjang: number;
+    keterangan: string;
+}
+
+export interface StasiunKRLItem {
+    stasiunId: string;
+    stasiunNama: string;
+    stasiunKode: string;
+}
+
+export interface JadwalKRLItem {
+    trainId: string;
+    kaName: string;
+    routeName: string;
+    destTime: string;
+    destStasiun: string;
+    colorCode: string;
+}
+
+export interface InflasiItem {
+    periode: string;
+    bulan: string;
+    tahun: number;
+    inflasiBulanan: number;
+    inflasiTahunan: number;
+    ihk: number;
+}

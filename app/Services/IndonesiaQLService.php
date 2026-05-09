@@ -240,4 +240,66 @@ class IndonesiaQLService
             fn () => $this->gql('{ hargaBBM { nama harga satuan jenis } }')['hargaBBM'] ?? []
         );
     }
+
+    public function getIHSG(): ?array
+    {
+        return Cache::remember(
+            'ihsg',
+            300,
+            fn () => $this->gql('{ ihsg { symbol nama harga perubahan persentasePerubahan open high low volume waktu } }')['ihsg'] ?? null
+        );
+    }
+
+    public function getIuranBPJS(): array
+    {
+        return Cache::rememberForever(
+            'iuran_bpjs',
+            fn () => $this->gql('{ iuranBPJS { kelas segmen nominal keterangan } }')['iuranBPJS'] ?? []
+        );
+    }
+
+    public function validasiRekening(string $bank, string $noRekening): ?array
+    {
+        return $this->gql(
+            'query ValidasiRekening($bank: String!, $noRekening: String!) { validasiRekening(bank: $bank, noRekening: $noRekening) { valid bank noRekening panjang keterangan } }',
+            ['bank' => $bank, 'noRekening' => $noRekening]
+        )['validasiRekening'] ?? null;
+    }
+
+    public function getStasiunKRL(): array
+    {
+        return Cache::remember(
+            'stasiun_krl',
+            3600,
+            fn () => $this->gql('{ stasiunKRL { stasiunId stasiunNama stasiunKode } }')['stasiunKRL'] ?? []
+        );
+    }
+
+    public function getJadwalKRL(string $stasiunId, ?string $timeFrom = null, ?string $timeTo = null): array
+    {
+        $variables = ['stasiunId' => $stasiunId];
+        if ($timeFrom !== null) {
+            $variables['timeFrom'] = $timeFrom;
+        }
+        if ($timeTo !== null) {
+            $variables['timeTo'] = $timeTo;
+        }
+
+        return $this->gql(
+            'query JadwalKRL($stasiunId: String!, $timeFrom: String, $timeTo: String) { jadwalKRL(stasiunId: $stasiunId, timeFrom: $timeFrom, timeTo: $timeTo) { trainId kaName routeName destTime destStasiun colorCode } }',
+            $variables
+        )['jadwalKRL'] ?? [];
+    }
+
+    public function getInflasi(int $tahun): array
+    {
+        return Cache::remember(
+            "inflasi_{$tahun}",
+            86400,
+            fn () => $this->gql(
+                'query Inflasi($tahun: Int) { inflasi(tahun: $tahun) { periode bulan tahun inflasiBulanan inflasiTahunan ihk } }',
+                ['tahun' => $tahun]
+            )['inflasi'] ?? []
+        );
+    }
 }
