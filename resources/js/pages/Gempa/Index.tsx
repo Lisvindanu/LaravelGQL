@@ -44,12 +44,23 @@ export default function GempaIndex({ terbaru, list }: Props) {
                     <div className="mt-6 divide-y divide-neutral-100 border-t border-neutral-200 dark:divide-zinc-800 dark:border-zinc-800">
                         {[
                             { label: 'Kedalaman', value: terbaru.kedalaman },
-                            { label: 'Koordinat', value: `${terbaru.lintang}, ${terbaru.bujur}` },
+                            {
+                                label: 'Koordinat',
+                                value: `${terbaru.lintang}, ${terbaru.bujur}`,
+                            },
                             { label: 'Potensi', value: terbaru.potensi },
-                            { label: 'Dirasakan', value: terbaru.dirasakan || '—' },
+                            {
+                                label: 'Dirasakan',
+                                value: terbaru.dirasakan || '—',
+                            },
                         ].map(({ label, value }) => (
-                            <div key={label} className="flex items-baseline justify-between py-3">
-                                <p className="text-xs text-neutral-400 dark:text-zinc-500">{label}</p>
+                            <div
+                                key={label}
+                                className="flex items-baseline justify-between py-3"
+                            >
+                                <p className="text-xs text-neutral-400 dark:text-zinc-500">
+                                    {label}
+                                </p>
                                 <p className="font-mono text-sm font-bold text-neutral-900 dark:text-white">
                                     {value}
                                 </p>
@@ -66,7 +77,10 @@ export default function GempaIndex({ terbaru, list }: Props) {
                     </p>
                     <div className="divide-y divide-neutral-100 border-t border-b border-neutral-200 dark:divide-zinc-800 dark:border-zinc-800">
                         {list.map((g, i) => (
-                            <div key={i} className="flex items-center gap-4 py-3">
+                            <div
+                                key={i}
+                                className="flex items-center gap-4 py-3"
+                            >
                                 <span className="w-10 font-mono text-sm font-black text-neutral-900 dark:text-white">
                                     M {g.magnitude}
                                 </span>
@@ -78,7 +92,9 @@ export default function GempaIndex({ terbaru, list }: Props) {
                                         {g.tanggal} · {g.jam} · {g.kedalaman}
                                     </p>
                                 </div>
-                                {g.potensi.toLowerCase().includes('tsunami') && (
+                                {g.potensi
+                                    .toLowerCase()
+                                    .includes('tsunami') && (
                                     <span className="text-[10px] font-bold tracking-wide text-red-600 uppercase">
                                         Tsunami
                                     </span>

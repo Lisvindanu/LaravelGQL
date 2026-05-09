@@ -18,7 +18,6 @@ const navGroups = [
             { label: 'Harga BBM', href: '/harga-bbm' },
             { label: 'IHSG', href: '/saham' },
             { label: 'Inflasi', href: '/inflasi' },
-            { label: 'Jadwal KRL', href: '/krl' },
         ],
     },
     {

@@ -10,7 +10,6 @@ use App\Http\Controllers\KalenderHijriyahController;
 use App\Http\Controllers\KalenderJawaController;
 use App\Http\Controllers\KodeBankController;
 use App\Http\Controllers\KodePosController;
-use App\Http\Controllers\KrlController;
 use App\Http\Controllers\KursController;
 use App\Http\Controllers\NikController;
 use App\Http\Controllers\PlatNomorController;
@@ -41,5 +40,4 @@ Route::get('/harga-bbm', [HargaBBMController::class, 'index'])->name('harga-bbm'
 Route::get('/saham', [SahamController::class, 'index'])->name('saham');
 Route::get('/bpjs', [BpjsController::class, 'index'])->name('bpjs');
 Route::get('/rekening', [RekeningController::class, 'index'])->name('rekening');
-Route::get('/krl', [KrlController::class, 'index'])->name('krl');
 Route::get('/inflasi', [InflasiController::class, 'index'])->name('inflasi');

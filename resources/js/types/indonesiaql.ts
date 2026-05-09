@@ -179,21 +179,6 @@ export interface ValidasiRekeningResult {
     keterangan: string;
 }
 
-export interface StasiunKRLItem {
-    stasiunId: string;
-    stasiunNama: string;
-    stasiunKode: string;
-}
-
-export interface JadwalKRLItem {
-    trainId: string;
-    kaName: string;
-    routeName: string;
-    destTime: string;
-    destStasiun: string;
-    colorCode: string;
-}
-
 export interface InflasiItem {
     periode: string;
     bulan: string;

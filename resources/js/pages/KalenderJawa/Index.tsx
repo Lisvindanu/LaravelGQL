@@ -12,25 +12,48 @@ interface Props {
 
 const MONTHS = [
     '',
-    'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
-    'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember',
+    'Januari',
+    'Februari',
+    'Maret',
+    'April',
+    'Mei',
+    'Juni',
+    'Juli',
+    'Agustus',
+    'September',
+    'Oktober',
+    'November',
+    'Desember',
 ];
 const DAY_NAMES = ['Min', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'];
 
 function goTo(bulan: number, tahun: number, hari?: number) {
-    let b = bulan, t = tahun;
-    if (b < 1) { b = 12; t--; }
-    if (b > 12) { b = 1; t++; }
+    let b = bulan,
+        t = tahun;
+    if (b < 1) {
+        b = 12;
+        t--;
+    }
+    if (b > 12) {
+        b = 1;
+        t++;
+    }
     const params: Record<string, number> = { bulan: b, tahun: t };
     if (hari) params.hari = hari;
     router.get('/kalender-jawa', params);
 }
 
-export default function KalenderJawaIndex({ bulan, tahun, hari, kalender }: Props) {
+export default function KalenderJawaIndex({
+    bulan,
+    tahun,
+    hari,
+    kalender,
+}: Props) {
     const [selected, setSelected] = useState<number | null>(hari ?? null);
 
     const today = new Date();
-    const isThisMonth = today.getFullYear() === tahun && today.getMonth() + 1 === bulan;
+    const isThisMonth =
+        today.getFullYear() === tahun && today.getMonth() + 1 === bulan;
     const todayDate = isThisMonth ? today.getDate() : -1;
 
     const firstDow = new Date(tahun, bulan - 1, 1).getDay();
@@ -59,7 +82,9 @@ export default function KalenderJawaIndex({ bulan, tahun, hari, kalender }: Prop
                             type="date"
                             onChange={(e) => {
                                 if (e.target.value) {
-                                    const [y, m, d] = e.target.value.split('-').map(Number);
+                                    const [y, m, d] = e.target.value
+                                        .split('-')
+                                        .map(Number);
                                     goTo(m, y, d);
                                 }
                             }}
@@ -71,7 +96,9 @@ export default function KalenderJawaIndex({ bulan, tahun, hari, kalender }: Prop
                         value={`${tahun}-${String(bulan).padStart(2, '0')}`}
                         onChange={(e) => {
                             if (e.target.value) {
-                                const [y, m] = e.target.value.split('-').map(Number);
+                                const [y, m] = e.target.value
+                                    .split('-')
+                                    .map(Number);
                                 goTo(m, y);
                             }
                         }}
@@ -114,21 +141,26 @@ export default function KalenderJawaIndex({ bulan, tahun, hari, kalender }: Prop
                         {Array.from({ length: firstDow }).map((_, i) => (
                             <div key={`e${i}`} className="min-h-[64px]" />
                         ))}
-                        {Array.from({ length: daysInMonth }, (_, i) => i + 1).map((d) => {
+                        {Array.from(
+                            { length: daysInMonth },
+                            (_, i) => i + 1,
+                        ).map((d) => {
                             const data = kalender[d];
                             const isToday = d === todayDate;
                             const isSelected = d === selected;
                             return (
                                 <button
                                     key={d}
-                                    onClick={() => setSelected(isSelected ? null : d)}
+                                    onClick={() =>
+                                        setSelected(isSelected ? null : d)
+                                    }
                                     className={[
                                         'flex min-h-[64px] w-full flex-col items-start gap-0.5 rounded-lg p-1.5 text-left transition-colors',
                                         isSelected
                                             ? 'bg-neutral-900 dark:bg-white'
                                             : isToday
-                                                ? 'bg-red-50 dark:bg-red-950/30'
-                                                : 'hover:bg-neutral-50 dark:hover:bg-zinc-800/40',
+                                              ? 'bg-red-50 dark:bg-red-950/30'
+                                              : 'hover:bg-neutral-50 dark:hover:bg-zinc-800/40',
                                     ].join(' ')}
                                 >
                                     <span
@@ -137,8 +169,8 @@ export default function KalenderJawaIndex({ bulan, tahun, hari, kalender }: Prop
                                             isToday && !isSelected
                                                 ? 'bg-red-600 text-white'
                                                 : isSelected
-                                                    ? 'text-white dark:text-neutral-900'
-                                                    : 'text-neutral-900 dark:text-white',
+                                                  ? 'text-white dark:text-neutral-900'
+                                                  : 'text-neutral-900 dark:text-white',
                                         ].join(' ')}
                                     >
                                         {d}
@@ -170,7 +202,7 @@ export default function KalenderJawaIndex({ bulan, tahun, hari, kalender }: Prop
                                 {selectedData.tanggalMasehi}
                             </p>
                             <div className="mb-6 border-l-4 border-red-600 pl-4">
-                                <p className="font-display text-3xl font-black leading-tight text-neutral-900 dark:text-white">
+                                <p className="font-display text-3xl leading-tight font-black text-neutral-900 dark:text-white">
                                     {selectedData.hari}
                                 </p>
                                 <p className="font-display text-xl font-black text-neutral-400 dark:text-zinc-500">
@@ -180,13 +212,31 @@ export default function KalenderJawaIndex({ bulan, tahun, hari, kalender }: Prop
                             <div className="divide-y divide-neutral-100 dark:divide-zinc-800">
                                 {[
                                     { label: 'Wuku', value: selectedData.wuku },
-                                    { label: 'Tahun Jawa', value: String(selectedData.tahunJawa) },
-                                    { label: 'Nama Windu', value: selectedData.namaWindu },
-                                    { label: 'Tahun dalam Windu', value: String(selectedData.tahunDalamWindu) },
+                                    {
+                                        label: 'Tahun Jawa',
+                                        value: String(selectedData.tahunJawa),
+                                    },
+                                    {
+                                        label: 'Nama Windu',
+                                        value: selectedData.namaWindu,
+                                    },
+                                    {
+                                        label: 'Tahun dalam Windu',
+                                        value: String(
+                                            selectedData.tahunDalamWindu,
+                                        ),
+                                    },
                                 ].map(({ label, value }) => (
-                                    <div key={label} className="flex items-baseline justify-between py-2.5">
-                                        <p className="text-xs text-neutral-400 dark:text-zinc-500">{label}</p>
-                                        <p className="font-mono text-sm font-bold text-neutral-900 dark:text-white">{value}</p>
+                                    <div
+                                        key={label}
+                                        className="flex items-baseline justify-between py-2.5"
+                                    >
+                                        <p className="text-xs text-neutral-400 dark:text-zinc-500">
+                                            {label}
+                                        </p>
+                                        <p className="font-mono text-sm font-bold text-neutral-900 dark:text-white">
+                                            {value}
+                                        </p>
                                     </div>
                                 ))}
                             </div>

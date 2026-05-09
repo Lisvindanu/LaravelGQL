@@ -12,7 +12,13 @@ export default function HargaBBMIndex({ list }: Props) {
     const nonSubsidi = list.filter((i) => i.jenis === 'Non-Subsidi');
     const subsidi = list.filter((i) => i.jenis === 'Subsidi');
 
-    const Section = ({ title, items }: { title: string; items: HargaBBMItem[] }) =>
+    const Section = ({
+        title,
+        items,
+    }: {
+        title: string;
+        items: HargaBBMItem[];
+    }) =>
         items.length === 0 ? null : (
             <div className="mb-8">
                 <p className="mb-3 text-[10px] font-bold tracking-[0.15em] text-neutral-400 uppercase dark:text-zinc-500">
@@ -20,7 +26,10 @@ export default function HargaBBMIndex({ list }: Props) {
                 </p>
                 <div className="divide-y divide-neutral-100 border-t border-b border-neutral-200 dark:divide-zinc-800 dark:border-zinc-800">
                     {items.map((item) => (
-                        <div key={item.nama} className="flex items-baseline justify-between py-3">
+                        <div
+                            key={item.nama}
+                            className="flex items-baseline justify-between py-3"
+                        >
                             <p className="text-sm font-medium text-neutral-700 dark:text-zinc-300">
                                 {item.nama}
                             </p>

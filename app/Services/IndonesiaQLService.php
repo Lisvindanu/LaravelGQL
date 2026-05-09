@@ -308,31 +308,6 @@ class IndonesiaQLService
         )['validasiRekening'] ?? null;
     }
 
-    public function getStasiunKRL(): array
-    {
-        return Cache::remember(
-            'stasiun_krl',
-            3600,
-            fn () => $this->gql('{ stasiunKRL { stasiunId stasiunNama stasiunKode } }')['stasiunKRL'] ?? []
-        );
-    }
-
-    public function getJadwalKRL(string $stasiunId, ?string $timeFrom = null, ?string $timeTo = null): array
-    {
-        $variables = ['stasiunId' => $stasiunId];
-        if ($timeFrom !== null) {
-            $variables['timeFrom'] = $timeFrom;
-        }
-        if ($timeTo !== null) {
-            $variables['timeTo'] = $timeTo;
-        }
-
-        return $this->gql(
-            'query JadwalKRL($stasiunId: String!, $timeFrom: String, $timeTo: String) { jadwalKRL(stasiunId: $stasiunId, timeFrom: $timeFrom, timeTo: $timeTo) { trainId kaName routeName destTime destStasiun colorCode } }',
-            $variables
-        )['jadwalKRL'] ?? [];
-    }
-
     public function getInflasi(int $tahun): array
     {
         return Cache::remember(
