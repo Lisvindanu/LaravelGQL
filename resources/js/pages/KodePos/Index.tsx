@@ -43,7 +43,7 @@ export default function KodePosIndex({ kode, results }: Props) {
                         type="text"
                         value={value}
                         onChange={(e) => setValue(e.target.value)}
-                        placeholder="Contoh: 16111"
+                        placeholder="Contoh: 10110"
                         maxLength={5}
                         className="flex-1 bg-transparent py-2.5 font-mono text-sm text-neutral-900 placeholder-neutral-300 focus:outline-none dark:text-white dark:placeholder-zinc-600"
                     />

@@ -95,7 +95,7 @@ const EXAMPLES: { label: string; query: string; variables?: string }[] = [
     {
         label: 'Kode Pos',
         query: `query {
-  kodePos(kode: "16111") {
+  kodePos(kode: "10110") {
     kodePos kelurahan kecamatan kota provinsi
   }
 }`,
