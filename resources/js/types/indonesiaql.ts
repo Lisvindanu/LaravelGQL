@@ -113,3 +113,40 @@ export interface WaktuSholatResult {
     maghrib: string;
     isya: string;
 }
+
+export interface GempaItem {
+    tanggal: string;
+    jam: string;
+    magnitude: string;
+    kedalaman: string;
+    lintang: string;
+    bujur: string;
+    wilayah: string;
+    potensi: string;
+    dirasakan: string;
+}
+
+export interface KodePosResult {
+    kodePos: string;
+    kelurahan: string;
+    kecamatan: string;
+    kota: string;
+    provinsi: string;
+}
+
+export interface KalenderHijriyahResult {
+    tanggalMasehi: string;
+    tanggalHijriyah: string;
+    hari: string;
+    hariArab: string;
+    bulan: string;
+    bulanArab: string;
+    tahun: number;
+}
+
+export interface HargaBBMItem {
+    nama: string;
+    harga: number;
+    satuan: string;
+    jenis: string;
+}

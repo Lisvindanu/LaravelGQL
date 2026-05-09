@@ -84,13 +84,43 @@ const EXAMPLES: { label: string; query: string; variables?: string }[] = [
   }
 }`,
     },
+    {
+        label: 'Gempa Terbaru',
+        query: `query {
+  gempaTerbaru {
+    tanggal jam magnitude kedalaman wilayah potensi
+  }
+}`,
+    },
+    {
+        label: 'Kode Pos',
+        query: `query {
+  kodePos(kode: "16111") {
+    kodePos kelurahan kecamatan kota provinsi
+  }
+}`,
+    },
+    {
+        label: 'Kalender Hijriyah',
+        query: `query {
+  kalenderHijriyah(tanggal: "2026-05-09") {
+    tanggalMasehi tanggalHijriyah hari hariArab bulan bulanArab tahun
+  }
+}`,
+    },
+    {
+        label: 'Harga BBM',
+        query: `{ hargaBBM { nama harga satuan jenis } }`,
+    },
 ];
 
 export default function PlaygroundIndex() {
     const [query, setQuery] = useState(EXAMPLES[0].query);
     const [variables, setVariables] = useState('');
     const [response, setResponse] = useState('');
-    const [status, setStatus] = useState<{ code: number; ms: number } | null>(null);
+    const [status, setStatus] = useState<{ code: number; ms: number } | null>(
+        null,
+    );
     const [loading, setLoading] = useState(false);
     const [showVars, setShowVars] = useState(false);
     const startRef = useRef<number>(0);
@@ -124,7 +154,9 @@ export default function PlaygroundIndex() {
             setResponse(JSON.stringify(json, null, 2));
             setStatus({ code: res.status, ms });
         } catch (err) {
-            setResponse(`Error: ${err instanceof Error ? err.message : String(err)}`);
+            setResponse(
+                `Error: ${err instanceof Error ? err.message : String(err)}`,
+            );
         } finally {
             setLoading(false);
         }
@@ -202,12 +234,20 @@ export default function PlaygroundIndex() {
                             className="flex items-center gap-1.5 text-[10px] font-bold tracking-[0.15em] text-neutral-400 uppercase transition-colors hover:text-neutral-700 dark:text-zinc-500 dark:hover:text-zinc-300"
                         >
                             <svg
-                                className={['h-3 w-3 transition-transform', showVars ? 'rotate-90' : ''].join(' ')}
+                                className={[
+                                    'h-3 w-3 transition-transform',
+                                    showVars ? 'rotate-90' : '',
+                                ].join(' ')}
                                 fill="none"
                                 viewBox="0 0 24 24"
                                 stroke="currentColor"
                             >
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth={2}
+                                    d="M9 5l7 7-7 7"
+                                />
                             </svg>
                             Variables
                         </button>
@@ -228,12 +268,31 @@ export default function PlaygroundIndex() {
                         className="flex items-center justify-center gap-2 rounded-md bg-neutral-900 py-2.5 text-sm font-bold text-white transition-colors hover:bg-neutral-700 disabled:opacity-40 dark:bg-white dark:text-neutral-900 dark:hover:bg-neutral-200"
                     >
                         {loading ? (
-                            <svg className="h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none">
-                                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
+                            <svg
+                                className="h-4 w-4 animate-spin"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                            >
+                                <circle
+                                    className="opacity-25"
+                                    cx="12"
+                                    cy="12"
+                                    r="10"
+                                    stroke="currentColor"
+                                    strokeWidth="4"
+                                />
+                                <path
+                                    className="opacity-75"
+                                    fill="currentColor"
+                                    d="M4 12a8 8 0 018-8v8H4z"
+                                />
                             </svg>
                         ) : (
-                            <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
+                            <svg
+                                className="h-4 w-4"
+                                fill="currentColor"
+                                viewBox="0 0 24 24"
+                            >
                                 <path d="M8 5v14l11-7z" />
                             </svg>
                         )}
@@ -249,7 +308,14 @@ export default function PlaygroundIndex() {
                         </p>
                         {status && (
                             <div className="flex items-center gap-3">
-                                <span className={['text-[10px] font-bold', status.code === 200 ? 'text-neutral-500 dark:text-zinc-400' : 'text-red-600'].join(' ')}>
+                                <span
+                                    className={[
+                                        'text-[10px] font-bold',
+                                        status.code === 200
+                                            ? 'text-neutral-500 dark:text-zinc-400'
+                                            : 'text-red-600',
+                                    ].join(' ')}
+                                >
                                     {status.code}
                                 </span>
                                 <span className="font-mono text-[10px] text-neutral-300 dark:text-zinc-700">
@@ -260,7 +326,7 @@ export default function PlaygroundIndex() {
                     </div>
                     <div className="h-[370px] overflow-auto rounded-md border border-neutral-200 bg-neutral-50 px-4 py-3 dark:border-zinc-700 dark:bg-zinc-900">
                         {response ? (
-                            <pre className="whitespace-pre-wrap break-all font-mono text-xs leading-relaxed text-neutral-700 dark:text-zinc-300">
+                            <pre className="font-mono text-xs leading-relaxed break-all whitespace-pre-wrap text-neutral-700 dark:text-zinc-300">
                                 {response}
                             </pre>
                         ) : (

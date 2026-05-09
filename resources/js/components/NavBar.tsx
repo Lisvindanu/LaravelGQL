@@ -14,6 +14,8 @@ const navGroups = [
             { label: 'Cuaca', href: '/cuaca' },
             { label: 'Kurs', href: '/kurs' },
             { label: 'Hari Libur', href: '/hari-libur' },
+            { label: 'Gempa Bumi', href: '/gempa' },
+            { label: 'Harga BBM', href: '/harga-bbm' },
         ],
     },
     {
@@ -21,6 +23,7 @@ const navGroups = [
         items: [
             { label: 'Validasi NIK', href: '/nik' },
             { label: 'Kalender Jawa', href: '/kalender-jawa' },
+            { label: 'Kalender Hijriyah', href: '/kalender-hijriyah' },
             { label: 'Terbilang', href: '/terbilang' },
         ],
     },
@@ -30,6 +33,7 @@ const navGroups = [
             { label: 'Kode Bank', href: '/kode-bank' },
             { label: 'Plat Nomor', href: '/plat-nomor' },
             { label: 'Waktu Sholat', href: '/waktu-sholat' },
+            { label: 'Kode Pos', href: '/kode-pos' },
         ],
     },
 ];
@@ -54,11 +58,15 @@ export default function NavBar({ open, onClose }: Props) {
         >
             {/* Logo */}
             <div className="flex h-16 items-center justify-between px-5">
-                <Link href="/" onClick={onClose} className="group flex flex-col gap-0.5">
+                <Link
+                    href="/"
+                    onClick={onClose}
+                    className="group flex flex-col gap-0.5"
+                >
                     <span className="text-[10px] font-bold tracking-[0.2em] text-red-600 uppercase">
                         🇮🇩 Indonesia
                     </span>
-                    <span className="font-display text-xl font-black leading-none tracking-tight text-neutral-900 dark:text-white">
+                    <span className="font-display text-xl leading-none font-black tracking-tight text-neutral-900 dark:text-white">
                         QL
                     </span>
                 </Link>
@@ -67,8 +75,18 @@ export default function NavBar({ open, onClose }: Props) {
                     className="flex h-7 w-7 items-center justify-center text-neutral-400 hover:text-neutral-900 md:hidden dark:hover:text-white"
                     aria-label="Close"
                 >
-                    <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
+                    <svg
+                        className="h-4 w-4"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        strokeWidth={2}
+                    >
+                        <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M6 18 18 6M6 6l12 12"
+                        />
                     </svg>
                 </button>
             </div>

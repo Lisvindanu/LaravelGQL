@@ -198,4 +198,46 @@ class IndonesiaQLService
             )['waktuSholat'] ?? null
         );
     }
+
+    public function getGempaTerbaru(): ?array
+    {
+        return Cache::remember(
+            'gempa_terbaru',
+            300,
+            fn () => $this->gql('{ gempaTerbaru { tanggal jam magnitude kedalaman lintang bujur wilayah potensi dirasakan } }')['gempaTerbaru'] ?? null
+        );
+    }
+
+    public function getGempaList(): array
+    {
+        return Cache::remember(
+            'gempa_list',
+            300,
+            fn () => $this->gql('{ gempaList { tanggal jam magnitude kedalaman lintang bujur wilayah potensi dirasakan } }')['gempaList'] ?? []
+        );
+    }
+
+    public function getKodePos(string $kode): array
+    {
+        return $this->gql(
+            'query KodePos($kode: String!) { kodePos(kode: $kode) { kodePos kelurahan kecamatan kota provinsi } }',
+            ['kode' => $kode]
+        )['kodePos'] ?? [];
+    }
+
+    public function getKalenderHijriyah(string $tanggal): ?array
+    {
+        return $this->gql(
+            'query KalenderHijriyah($tanggal: String!) { kalenderHijriyah(tanggal: $tanggal) { tanggalMasehi tanggalHijriyah hari hariArab bulan bulanArab tahun } }',
+            ['tanggal' => $tanggal]
+        )['kalenderHijriyah'] ?? null;
+    }
+
+    public function getHargaBBM(): array
+    {
+        return Cache::rememberForever(
+            'harga_bbm',
+            fn () => $this->gql('{ hargaBBM { nama harga satuan jenis } }')['hargaBBM'] ?? []
+        );
+    }
 }
