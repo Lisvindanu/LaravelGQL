@@ -15,11 +15,16 @@ class KalenderHijriyahController extends Controller
 
     public function index(Request $request): Response
     {
-        $tanggal = $request->string('tanggal')->toString();
+        $today = now();
+        $bulan = $request->integer('bulan') ?: (int) $today->format('n');
+        $tahun = $request->integer('tahun') ?: (int) $today->format('Y');
+        $hari = $request->integer('hari') ?: null;
 
         return Inertia::render('KalenderHijriyah/Index', [
-            'tanggal' => $tanggal ?: date('Y-m-d'),
-            'result' => $tanggal ? $this->service->getKalenderHijriyah($tanggal) : null,
+            'bulan' => $bulan,
+            'tahun' => $tahun,
+            'hari' => $hari,
+            'kalender' => $this->service->getKalenderHijriyahMonth($tahun, $bulan),
         ]);
     }
 }

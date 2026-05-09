@@ -9,20 +9,41 @@ interface Props {
     jadwal: JadwalKRLItem[];
 }
 
+type Period = 'semua' | 'subuh' | 'pagi' | 'siang' | 'sore' | 'malam';
+
+const PERIODS: { key: Period; label: string; range: string }[] = [
+    { key: 'semua', label: 'Semua', range: '' },
+    { key: 'subuh', label: 'Subuh', range: '04–06' },
+    { key: 'pagi', label: 'Pagi', range: '06–12' },
+    { key: 'siang', label: 'Siang', range: '12–15' },
+    { key: 'sore', label: 'Sore', range: '15–18' },
+    { key: 'malam', label: 'Malam', range: '18–24' },
+];
+
+function filterByPeriod(jadwal: JadwalKRLItem[], period: Period): JadwalKRLItem[] {
+    if (period === 'semua') return jadwal;
+    return jadwal.filter((j) => {
+        const t = j.destTime;
+        if (period === 'subuh') return t >= '04:00' && t < '06:00';
+        if (period === 'pagi') return t >= '06:00' && t < '12:00';
+        if (period === 'siang') return t >= '12:00' && t < '15:00';
+        if (period === 'sore') return t >= '15:00' && t < '18:00';
+        if (period === 'malam') return t >= '18:00' || t < '04:00';
+        return true;
+    });
+}
+
 export default function KrlIndex({ stasiun, stasiunId, jadwal }: Props) {
     const [selectedId, setSelectedId] = useState(stasiunId);
-    const [timeFrom, setTimeFrom] = useState('');
-    const [timeTo, setTimeTo] = useState('');
+    const [period, setPeriod] = useState<Period>('semua');
 
     const selectedStasiun = stasiun.find((s) => s.stasiunId === stasiunId);
+    const filtered = filterByPeriod(jadwal, period);
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
         if (!selectedId) return;
-        const params: Record<string, string> = { stasiunId: selectedId };
-        if (timeFrom) params.timeFrom = timeFrom;
-        if (timeTo) params.timeTo = timeTo;
-        router.get('/krl', params);
+        router.get('/krl', { stasiunId: selectedId });
     };
 
     return (
@@ -58,40 +79,11 @@ export default function KrlIndex({ stasiun, stasiunId, jadwal }: Props) {
                             >
                                 <option value="">Pilih Stasiun...</option>
                                 {stasiun.map((s) => (
-                                    <option
-                                        key={s.stasiunId}
-                                        value={s.stasiunId}
-                                    >
+                                    <option key={s.stasiunId} value={s.stasiunId}>
                                         {s.stasiunNama} ({s.stasiunKode})
                                     </option>
                                 ))}
                             </select>
-                        </div>
-                        <div className="grid grid-cols-2 gap-3">
-                            <div>
-                                <label className="mb-2 block text-[11px] font-bold tracking-[0.15em] text-neutral-400 uppercase dark:text-zinc-500">
-                                    Dari Jam
-                                </label>
-                                <input
-                                    type="time"
-                                    value={timeFrom}
-                                    onChange={(e) =>
-                                        setTimeFrom(e.target.value)
-                                    }
-                                    className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-3 text-sm focus:border-red-400 focus:ring-2 focus:ring-red-100 focus:outline-none dark:border-zinc-700 dark:bg-zinc-800/50 dark:text-white"
-                                />
-                            </div>
-                            <div>
-                                <label className="mb-2 block text-[11px] font-bold tracking-[0.15em] text-neutral-400 uppercase dark:text-zinc-500">
-                                    Sampai Jam
-                                </label>
-                                <input
-                                    type="time"
-                                    value={timeTo}
-                                    onChange={(e) => setTimeTo(e.target.value)}
-                                    className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-3 text-sm focus:border-red-400 focus:ring-2 focus:ring-red-100 focus:outline-none dark:border-zinc-700 dark:bg-zinc-800/50 dark:text-white"
-                                />
-                            </div>
                         </div>
                         <button
                             type="submit"
@@ -106,26 +98,44 @@ export default function KrlIndex({ stasiun, stasiunId, jadwal }: Props) {
 
             {stasiunId && (
                 <div>
-                    <p className="mb-3 text-[10px] font-bold tracking-[0.15em] text-neutral-400 uppercase dark:text-zinc-500">
-                        Jadwal — {selectedStasiun?.stasiunNama ?? stasiunId}
-                    </p>
-                    {jadwal.length === 0 ? (
+                    <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+                        <p className="text-[10px] font-bold tracking-[0.15em] text-neutral-400 uppercase dark:text-zinc-500">
+                            {selectedStasiun?.stasiunNama ?? stasiunId} &mdash;{' '}
+                            {filtered.length} kereta
+                        </p>
+                        <div className="flex flex-wrap gap-1">
+                            {PERIODS.map((p) => (
+                                <button
+                                    key={p.key}
+                                    onClick={() => setPeriod(p.key)}
+                                    className={[
+                                        'rounded-full px-3 py-1 text-xs font-semibold transition-colors',
+                                        period === p.key
+                                            ? 'bg-neutral-900 text-white dark:bg-white dark:text-neutral-900'
+                                            : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200 dark:bg-zinc-800 dark:text-zinc-400 dark:hover:bg-zinc-700',
+                                    ].join(' ')}
+                                >
+                                    {p.label}
+                                    {p.range && (
+                                        <span className="ml-1 opacity-50">{p.range}</span>
+                                    )}
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+
+                    {filtered.length === 0 ? (
                         <p className="text-sm text-neutral-400">
-                            Tidak ada jadwal ditemukan.
+                            Tidak ada jadwal untuk periode ini.
                         </p>
                     ) : (
                         <div className="divide-y divide-neutral-100 border-t border-b border-neutral-200 dark:divide-zinc-800 dark:border-zinc-800">
-                            {jadwal.map((j, i) => (
-                                <div
-                                    key={i}
-                                    className="flex items-center gap-4 py-3"
-                                >
+                            {filtered.map((j, i) => (
+                                <div key={i} className="flex items-center gap-4 py-3">
                                     {j.colorCode && (
                                         <div
                                             className="h-8 w-1 shrink-0 rounded-full"
-                                            style={{
-                                                backgroundColor: j.colorCode,
-                                            }}
+                                            style={{ backgroundColor: j.colorCode }}
                                         />
                                     )}
                                     <div className="min-w-[52px]">

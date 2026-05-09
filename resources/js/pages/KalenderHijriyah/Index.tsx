@@ -1,95 +1,215 @@
 import { Head, router } from '@inertiajs/react';
-import { type FormEvent, useState } from 'react';
+import { useState } from 'react';
 import Layout from '@/components/Layout';
 import type { KalenderHijriyahResult } from '@/types/indonesiaql';
 
 interface Props {
-    tanggal: string;
-    result: KalenderHijriyahResult | null;
+    bulan: number;
+    tahun: number;
+    hari: number | null;
+    kalender: Record<number, KalenderHijriyahResult | null>;
 }
 
-export default function KalenderHijriyahIndex({ tanggal, result }: Props) {
-    const [value, setValue] = useState(tanggal);
+const MONTHS = [
+    '',
+    'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
+    'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember',
+];
+const DAY_NAMES = ['Min', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'];
 
-    const handleSubmit = (e: FormEvent) => {
-        e.preventDefault();
-        if (value) {
-            router.get('/kalender-hijriyah', { tanggal: value });
-        }
-    };
+function goTo(bulan: number, tahun: number, hari?: number) {
+    let b = bulan, t = tahun;
+    if (b < 1) { b = 12; t--; }
+    if (b > 12) { b = 1; t++; }
+    const params: Record<string, number> = { bulan: b, tahun: t };
+    if (hari) params.hari = hari;
+    router.get('/kalender-hijriyah', params);
+}
+
+export default function KalenderHijriyahIndex({ bulan, tahun, hari, kalender }: Props) {
+    const [selected, setSelected] = useState<number | null>(hari ?? null);
+
+    const today = new Date();
+    const isThisMonth = today.getFullYear() === tahun && today.getMonth() + 1 === bulan;
+    const todayDate = isThisMonth ? today.getDate() : -1;
+
+    const firstDow = new Date(tahun, bulan - 1, 1).getDay();
+    const daysInMonth = Math.max(0, ...Object.keys(kalender).map(Number));
+    const selectedData = selected !== null ? kalender[selected] : null;
 
     return (
         <Layout>
             <Head title="Kalender Hijriyah" />
 
-            <div className="mb-8">
-                <p className="mb-2 text-[11px] font-bold tracking-[0.2em] text-red-600 uppercase">
-                    Penanggalan Hijriyah · Islam
-                </p>
-                <h1 className="font-display text-4xl font-black tracking-tight text-neutral-900 dark:text-white">
-                    Kalender Hijriyah
-                </h1>
-                <p className="mt-2 text-sm text-neutral-400 dark:text-zinc-500">
-                    Konversi tanggal Masehi ke penanggalan Hijriyah
-                </p>
-            </div>
-
-            <div className="max-w-sm">
-                <form
-                    onSubmit={handleSubmit}
-                    className="flex gap-0 border-b border-neutral-300 focus-within:border-red-600 dark:border-zinc-700"
-                >
+            <div className="mb-6 flex flex-wrap items-start justify-between gap-4">
+                <div>
+                    <p className="mb-2 text-[11px] font-bold tracking-[0.2em] text-red-600 uppercase">
+                        Penanggalan Hijriyah · Islam
+                    </p>
+                    <h1 className="font-display text-4xl font-black tracking-tight text-neutral-900 dark:text-white">
+                        Kalender Hijriyah
+                    </h1>
+                </div>
+                <div className="flex flex-col items-end gap-2 pt-2">
+                    <div className="flex items-center gap-2">
+                        <span className="text-[10px] font-bold tracking-[0.1em] text-neutral-400 uppercase dark:text-zinc-600">
+                            Cari
+                        </span>
+                        <input
+                            type="date"
+                            onChange={(e) => {
+                                if (e.target.value) {
+                                    const [y, m, d] = e.target.value.split('-').map(Number);
+                                    goTo(m, y, d);
+                                }
+                            }}
+                            className="rounded-lg border border-neutral-200 bg-white px-3 py-1.5 text-sm focus:border-red-400 focus:ring-2 focus:ring-red-100 focus:outline-none dark:border-zinc-700 dark:bg-zinc-800/50 dark:text-white"
+                        />
+                    </div>
                     <input
-                        type="date"
-                        value={value}
-                        onChange={(e) => setValue(e.target.value)}
-                        className="flex-1 bg-transparent py-2.5 text-sm text-neutral-900 focus:outline-none dark:text-white"
+                        type="month"
+                        value={`${tahun}-${String(bulan).padStart(2, '0')}`}
+                        onChange={(e) => {
+                            if (e.target.value) {
+                                const [y, m] = e.target.value.split('-').map(Number);
+                                goTo(m, y);
+                            }
+                        }}
+                        className="rounded-lg border border-neutral-200 bg-white px-3 py-1.5 text-sm focus:border-red-400 focus:ring-2 focus:ring-red-100 focus:outline-none dark:border-zinc-700 dark:bg-zinc-800/50 dark:text-white"
                     />
-                    <button
-                        type="submit"
-                        disabled={!value}
-                        className="py-2.5 pl-4 text-sm font-semibold text-red-600 transition-colors hover:text-red-700 focus:outline-none disabled:opacity-40"
-                    >
-                        Konversi
-                    </button>
-                </form>
+                </div>
             </div>
 
-            {result && (
-                <div className="mt-10 max-w-sm">
-                    <div className="mb-2 text-[11px] font-bold tracking-[0.2em] text-neutral-400 uppercase dark:text-zinc-500">
-                        {result.tanggalMasehi ?? tanggal}
-                    </div>
+            <div className="mb-4 flex items-center justify-between">
+                <button
+                    onClick={() => goTo(bulan - 1, tahun)}
+                    className="rounded-lg px-3 py-1.5 text-sm font-semibold text-neutral-600 transition-colors hover:bg-neutral-100 dark:text-zinc-400 dark:hover:bg-zinc-800"
+                >
+                    ← Sebelumnya
+                </button>
+                <h2 className="text-sm font-bold text-neutral-900 dark:text-white">
+                    {MONTHS[bulan]} {tahun}
+                </h2>
+                <button
+                    onClick={() => goTo(bulan + 1, tahun)}
+                    className="rounded-lg px-3 py-1.5 text-sm font-semibold text-neutral-600 transition-colors hover:bg-neutral-100 dark:text-zinc-400 dark:hover:bg-zinc-800"
+                >
+                    Berikutnya →
+                </button>
+            </div>
 
-                    <div className="border-l-4 border-red-600 pl-6">
-                        <p
-                            className="font-display text-5xl leading-tight font-black text-neutral-900 dark:text-white"
-                            dir="rtl"
-                        >
-                            {result.hariArab}
-                        </p>
-                        <p className="mt-1 font-display text-2xl font-black text-neutral-400 dark:text-zinc-500">
-                            {result.hari}
-                        </p>
-                    </div>
-
-                    <div className="mt-8 divide-y divide-neutral-100 border-t border-neutral-200 dark:divide-zinc-800 dark:border-zinc-800">
-                        {[
-                            { label: 'Tanggal Hijriyah', value: result.tanggalHijriyah },
-                            { label: 'Bulan', value: result.bulan },
-                            { label: 'Bulan (Arab)', value: result.bulanArab },
-                            { label: 'Tahun Hijriyah', value: String(result.tahun) },
-                        ].map(({ label, value: val }) => (
-                            <div key={label} className="flex items-baseline justify-between py-3">
-                                <p className="text-xs text-neutral-400 dark:text-zinc-500">{label}</p>
-                                <p className="font-mono text-sm font-bold text-neutral-900 dark:text-white">
-                                    {val}
-                                </p>
+            <div className="gap-6 lg:grid lg:grid-cols-[1fr_300px]">
+                <div>
+                    <div className="mb-1 grid grid-cols-7">
+                        {DAY_NAMES.map((d) => (
+                            <div
+                                key={d}
+                                className="py-2 text-center text-[10px] font-bold tracking-[0.1em] text-neutral-400 uppercase dark:text-zinc-600"
+                            >
+                                {d}
                             </div>
                         ))}
                     </div>
+                    <div className="grid grid-cols-7 gap-0.5">
+                        {Array.from({ length: firstDow }).map((_, i) => (
+                            <div key={`e${i}`} className="min-h-[64px]" />
+                        ))}
+                        {Array.from({ length: daysInMonth }, (_, i) => i + 1).map((d) => {
+                            const data = kalender[d];
+                            const isToday = d === todayDate;
+                            const isSelected = d === selected;
+                            return (
+                                <button
+                                    key={d}
+                                    onClick={() => setSelected(isSelected ? null : d)}
+                                    className={[
+                                        'flex min-h-[64px] w-full flex-col items-start gap-0.5 rounded-lg p-1.5 text-left transition-colors',
+                                        isSelected
+                                            ? 'bg-neutral-900 dark:bg-white'
+                                            : isToday
+                                                ? 'bg-red-50 dark:bg-red-950/30'
+                                                : 'hover:bg-neutral-50 dark:hover:bg-zinc-800/40',
+                                    ].join(' ')}
+                                >
+                                    <span
+                                        className={[
+                                            'flex h-6 w-6 items-center justify-center rounded-full text-xs font-black tabular-nums',
+                                            isToday && !isSelected
+                                                ? 'bg-red-600 text-white'
+                                                : isSelected
+                                                    ? 'text-white dark:text-neutral-900'
+                                                    : 'text-neutral-900 dark:text-white',
+                                        ].join(' ')}
+                                    >
+                                        {d}
+                                    </span>
+                                    {data && (
+                                        <span
+                                            className={[
+                                                'text-[9px] leading-tight',
+                                                isSelected
+                                                    ? 'text-neutral-400 dark:text-neutral-600'
+                                                    : 'text-neutral-400 dark:text-zinc-600',
+                                            ].join(' ')}
+                                        >
+                                            {data.tanggalHijriyah}
+                                            <br />
+                                            <span className="truncate">{data.bulan}</span>
+                                        </span>
+                                    )}
+                                </button>
+                            );
+                        })}
+                    </div>
                 </div>
-            )}
+
+                <div className="mt-6 lg:mt-0">
+                    {selected !== null && selectedData ? (
+                        <div className="sticky top-4 rounded-lg border border-neutral-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900">
+                            <p className="mb-4 text-[10px] font-bold tracking-[0.2em] text-neutral-400 uppercase dark:text-zinc-600">
+                                {selectedData.tanggalMasehi}
+                            </p>
+                            <div className="mb-6 border-l-4 border-red-600 pl-4">
+                                <p
+                                    className="font-display text-3xl font-black leading-tight text-neutral-900 dark:text-white"
+                                    dir="rtl"
+                                >
+                                    {selectedData.hariArab}
+                                </p>
+                                <p className="mt-0.5 font-display text-lg font-black text-neutral-400 dark:text-zinc-500">
+                                    {selectedData.hari}
+                                </p>
+                            </div>
+                            <div className="divide-y divide-neutral-100 dark:divide-zinc-800">
+                                {[
+                                    { label: 'Tanggal Hijriyah', value: selectedData.tanggalHijriyah },
+                                    { label: 'Bulan', value: selectedData.bulan },
+                                    { label: 'Bulan (Arab)', value: selectedData.bulanArab },
+                                    { label: 'Tahun Hijriyah', value: String(selectedData.tahun) },
+                                ].map(({ label, value }) => (
+                                    <div key={label} className="flex items-baseline justify-between py-2.5">
+                                        <p className="text-xs text-neutral-400 dark:text-zinc-500">{label}</p>
+                                        <p
+                                            className="font-mono text-sm font-bold text-neutral-900 dark:text-white"
+                                            dir={label.includes('Arab') ? 'rtl' : undefined}
+                                        >
+                                            {value}
+                                        </p>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    ) : (
+                        <div className="flex h-40 items-center justify-center rounded-lg border border-dashed border-neutral-200 dark:border-zinc-800">
+                            <p className="text-center text-sm text-neutral-300 dark:text-zinc-700">
+                                Pilih tanggal
+                                <br />
+                                untuk melihat detail
+                            </p>
+                        </div>
+                    )}
+                </div>
+            </div>
         </Layout>
     );
 }
