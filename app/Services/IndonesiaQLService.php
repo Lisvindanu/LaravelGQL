@@ -161,6 +161,27 @@ class IndonesiaQLService
         )['kalenderJawa'] ?? null;
     }
 
+    public function getKalenderJawaMonth(int $tahun, int $bulan): array
+    {
+        $cacheKey = "kalender_jawa_{$tahun}_{$bulan}";
+
+        return Cache::remember($cacheKey, 86400, function () use ($tahun, $bulan) {
+            $daysInMonth = cal_days_in_month(CAL_GREGORIAN, $bulan, $tahun);
+            $parts = [];
+            for ($d = 1; $d <= $daysInMonth; $d++) {
+                $tanggal = sprintf('%04d-%02d-%02d', $tahun, $bulan, $d);
+                $parts[] = "d{$d}: kalenderJawa(tanggal: \"{$tanggal}\") { tanggalMasehi hari pasaran wuku tahunJawa namaWindu tahunDalamWindu }";
+            }
+            $data = $this->gql('{ '.implode(' ', $parts).' }');
+            $result = [];
+            for ($d = 1; $d <= $daysInMonth; $d++) {
+                $result[$d] = $data["d{$d}"] ?? null;
+            }
+
+            return $result;
+        });
+    }
+
     public function getTerbilang(float $angka): ?array
     {
         return $this->gql(
@@ -231,6 +252,27 @@ class IndonesiaQLService
             'query KalenderHijriyah($tanggal: String!) { kalenderHijriyah(tanggal: $tanggal) { tanggalMasehi tanggalHijriyah hari hariArab bulan bulanArab tahun } }',
             ['tanggal' => $tanggal]
         )['kalenderHijriyah'] ?? null;
+    }
+
+    public function getKalenderHijriyahMonth(int $tahun, int $bulan): array
+    {
+        $cacheKey = "kalender_hijriyah_{$tahun}_{$bulan}";
+
+        return Cache::remember($cacheKey, 86400, function () use ($tahun, $bulan) {
+            $daysInMonth = cal_days_in_month(CAL_GREGORIAN, $bulan, $tahun);
+            $parts = [];
+            for ($d = 1; $d <= $daysInMonth; $d++) {
+                $tanggal = sprintf('%04d-%02d-%02d', $tahun, $bulan, $d);
+                $parts[] = "d{$d}: kalenderHijriyah(tanggal: \"{$tanggal}\") { tanggalMasehi tanggalHijriyah hari hariArab bulan bulanArab tahun }";
+            }
+            $data = $this->gql('{ '.implode(' ', $parts).' }');
+            $result = [];
+            for ($d = 1; $d <= $daysInMonth; $d++) {
+                $result[$d] = $data["d{$d}"] ?? null;
+            }
+
+            return $result;
+        });
     }
 
     public function getHargaBBM(): array
