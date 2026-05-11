@@ -222,4 +222,5 @@ export interface PahlawanNasionalItem {
     tahunWafat: number;
     deskripsi: string;
     tahunDiangkat: number;
+    foto: string;
 }

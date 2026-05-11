@@ -8,14 +8,24 @@ interface Props {
 }
 
 const AVATAR_COLORS = [
-    '#c0392b', '#e74c3c', '#8e44ad', '#2980b9',
-    '#16a085', '#27ae60', '#d35400', '#2c3e50',
-    '#7f8c8d', '#1abc9c', '#e67e22', '#2ecc71',
+    '#c0392b',
+    '#e74c3c',
+    '#8e44ad',
+    '#2980b9',
+    '#16a085',
+    '#27ae60',
+    '#d35400',
+    '#2c3e50',
+    '#7f8c8d',
+    '#1abc9c',
+    '#e67e22',
+    '#2ecc71',
 ];
 
 function avatarColor(name: string): string {
     let hash = 0;
-    for (let i = 0; i < name.length; i++) hash = name.charCodeAt(i) + ((hash << 5) - hash);
+    for (let i = 0; i < name.length; i++)
+        hash = name.charCodeAt(i) + ((hash << 5) - hash);
     return AVATAR_COLORS[Math.abs(hash) % AVATAR_COLORS.length];
 }
 
@@ -71,11 +81,21 @@ export default function PahlawanIndex({ list }: Props) {
                         key={item.nama}
                         className="flex gap-3 rounded-xl border border-neutral-100 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900"
                     >
-                        <div
-                            className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-sm font-bold text-white"
-                            style={{ backgroundColor: avatarColor(item.nama) }}
-                        >
-                            {initials(item.nama)}
+                        <div className="relative h-11 w-11 shrink-0">
+                            {item.foto ? (
+                                <img
+                                    src={item.foto}
+                                    alt={item.nama}
+                                    className="h-11 w-11 rounded-full object-cover object-top"
+                                />
+                            ) : (
+                                <div
+                                    className="flex h-11 w-11 items-center justify-center rounded-full text-sm font-bold text-white"
+                                    style={{ backgroundColor: avatarColor(item.nama) }}
+                                >
+                                    {initials(item.nama)}
+                                </div>
+                            )}
                         </div>
                         <div className="min-w-0 flex-1">
                             <div className="flex items-start justify-between gap-2">
@@ -86,11 +106,12 @@ export default function PahlawanIndex({ list }: Props) {
                                     {item.tahunDiangkat}
                                 </span>
                             </div>
-                            <p className="mt-1 text-[11px] leading-relaxed text-neutral-500 dark:text-zinc-400 line-clamp-2">
+                            <p className="mt-1 line-clamp-2 text-[11px] leading-relaxed text-neutral-500 dark:text-zinc-400">
                                 {item.deskripsi}
                             </p>
                             <p className="mt-1.5 text-[10px] text-neutral-400 dark:text-zinc-600">
-                                {item.tahunLahir > 0 ? item.tahunLahir : '?'} – {item.tahunWafat}
+                                {item.tahunLahir > 0 ? item.tahunLahir : '?'} –{' '}
+                                {item.tahunWafat}
                             </p>
                         </div>
                     </div>

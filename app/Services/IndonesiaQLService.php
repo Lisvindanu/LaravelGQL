@@ -373,7 +373,7 @@ class IndonesiaQLService
     {
         return Cache::rememberForever(
             'pahlawan_list',
-            fn () => $this->gql('{ pahlawanList { nama tahunLahir tahunWafat deskripsi tahunDiangkat } }')['pahlawanList'] ?? []
+            fn () => $this->gql('{ pahlawanList { nama tahunLahir tahunWafat deskripsi tahunDiangkat foto } }')['pahlawanList'] ?? []
         );
     }
 }
