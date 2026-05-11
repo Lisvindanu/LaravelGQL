@@ -8,7 +8,11 @@ interface Props {
 }
 
 const fmt = (n: number) =>
-    new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(n);
+    new Intl.NumberFormat('id-ID', {
+        style: 'currency',
+        currency: 'IDR',
+        maximumFractionDigits: 0,
+    }).format(n);
 
 export default function UMRIndex({ list, tahun }: Props) {
     const sorted = [...list].sort((a, b) => b.upah - a.upah);
@@ -31,7 +35,10 @@ export default function UMRIndex({ list, tahun }: Props) {
 
             <div className="divide-y divide-neutral-100 border-t border-b border-neutral-200 dark:divide-zinc-800 dark:border-zinc-800">
                 {sorted.map((item, i) => (
-                    <div key={item.kode} className="flex items-center justify-between py-3">
+                    <div
+                        key={item.kode}
+                        className="flex items-center justify-between py-3"
+                    >
                         <div className="flex items-center gap-3">
                             <span className="w-6 text-right text-xs text-neutral-300 dark:text-zinc-600">
                                 {i + 1}

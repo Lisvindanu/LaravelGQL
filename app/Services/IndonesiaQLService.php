@@ -360,31 +360,4 @@ class IndonesiaQLService
             )['bandaraDetail'] ?? null
         );
     }
-
-    public function getPenginapan(string $kota): array
-    {
-        $cacheKey = 'penginapan_'.str_replace(' ', '_', strtolower($kota));
-
-        $cached = Cache::get($cacheKey);
-        if ($cached !== null) {
-            return $cached;
-        }
-
-        try {
-            $response = Http::timeout(60)->post(self::ENDPOINT, [
-                'query'     => 'query Penginapan($kota: String!) { penginapan(kota: $kota) { id nama tipe alamat bintang telepon website lat lon } }',
-                'variables' => ['kota' => trim($kota)],
-            ]);
-            $list = $response->json('data.penginapan') ?? [];
-        } catch (\Throwable $e) {
-            Log::error('getPenginapan failed', ['error' => $e->getMessage(), 'kota' => $kota]);
-            $list = [];
-        }
-
-        if (! empty($list)) {
-            Cache::put($cacheKey, $list, 3600);
-        }
-
-        return $list;
-    }
 }

@@ -7,7 +7,11 @@ interface Props {
 }
 
 const fmt = (n: number) =>
-    new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(n);
+    new Intl.NumberFormat('id-ID', {
+        style: 'currency',
+        currency: 'IDR',
+        maximumFractionDigits: 0,
+    }).format(n);
 
 export default function EmasIndex({ list }: Props) {
     return (
@@ -35,7 +39,10 @@ export default function EmasIndex({ list }: Props) {
                     </div>
                     <div className="divide-y divide-neutral-100 border-t border-b border-neutral-200 dark:divide-zinc-800 dark:border-zinc-800">
                         {list.map((item) => (
-                            <div key={item.gram} className="grid grid-cols-3 items-center px-3 py-3">
+                            <div
+                                key={item.gram}
+                                className="grid grid-cols-3 items-center px-3 py-3"
+                            >
                                 <p className="text-sm font-semibold text-neutral-700 dark:text-zinc-300">
                                     {item.gram} gr
                                 </p>

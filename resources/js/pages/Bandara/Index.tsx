@@ -48,7 +48,10 @@ export default function BandaraIndex({ list }: Props) {
 
             <div className="divide-y divide-neutral-100 border-t border-b border-neutral-200 dark:divide-zinc-800 dark:border-zinc-800">
                 {filtered.map((item) => (
-                    <div key={item.kodeIATA} className="flex items-center gap-4 py-3">
+                    <div
+                        key={item.kodeIATA}
+                        className="flex items-center gap-4 py-3"
+                    >
                         <span className="w-12 font-mono text-sm font-black text-red-600">
                             {item.kodeIATA}
                         </span>
