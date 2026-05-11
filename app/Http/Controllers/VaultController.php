@@ -19,8 +19,8 @@ class VaultController extends Controller
             'password' => 'required',
         ]);
 
-        $validEmail    = env('VAULT_EMAIL', '');
-        $validPassword = env('VAULT_PASSWORD', '');
+        $validEmail    = config('vault.email');
+        $validPassword = config('vault.password');
 
         if ($request->email === $validEmail && $request->password === $validPassword) {
             $request->session()->put('vault_ok', true);
