@@ -16,8 +16,10 @@ const navGroups = [
             { label: 'Hari Libur', href: '/hari-libur' },
             { label: 'Gempa Bumi', href: '/gempa' },
             { label: 'Harga BBM', href: '/harga-bbm' },
+            { label: 'Harga Emas', href: '/emas' },
             { label: 'IHSG', href: '/saham' },
             { label: 'Inflasi', href: '/inflasi' },
+            { label: 'UMR/UMP', href: '/umr' },
         ],
     },
     {
@@ -33,6 +35,7 @@ const navGroups = [
     {
         label: 'Referensi',
         items: [
+            { label: 'Bandara', href: '/bandara' },
             { label: 'Kode Bank', href: '/kode-bank' },
             { label: 'Plat Nomor', href: '/plat-nomor' },
             { label: 'Waktu Sholat', href: '/waktu-sholat' },

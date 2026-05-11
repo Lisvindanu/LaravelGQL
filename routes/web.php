@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\BandaraController;
 use App\Http\Controllers\BpjsController;
 use App\Http\Controllers\CuacaController;
+use App\Http\Controllers\EmasController;
 use App\Http\Controllers\GempaController;
 use App\Http\Controllers\HargaBBMController;
 use App\Http\Controllers\HariLiburController;
@@ -16,6 +18,7 @@ use App\Http\Controllers\PlatNomorController;
 use App\Http\Controllers\RekeningController;
 use App\Http\Controllers\SahamController;
 use App\Http\Controllers\TerbilangController;
+use App\Http\Controllers\UmrController;
 use App\Http\Controllers\WaktuSholatController;
 use App\Http\Controllers\WilayahController;
 use Illuminate\Support\Facades\Route;
@@ -41,3 +44,6 @@ Route::get('/saham', [SahamController::class, 'index'])->name('saham');
 Route::get('/bpjs', [BpjsController::class, 'index'])->name('bpjs');
 Route::get('/rekening', [RekeningController::class, 'index'])->name('rekening');
 Route::get('/inflasi', [InflasiController::class, 'index'])->name('inflasi');
+Route::get('/umr', [UmrController::class, 'index'])->name('umr');
+Route::get('/emas', [EmasController::class, 'index'])->name('emas');
+Route::get('/bandara', [BandaraController::class, 'index'])->name('bandara');

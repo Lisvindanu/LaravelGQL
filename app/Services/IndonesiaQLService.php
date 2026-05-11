@@ -319,4 +319,45 @@ class IndonesiaQLService
             )['inflasi'] ?? []
         );
     }
+
+    public function getUMRList(?int $tahun = null): array
+    {
+        $key = $tahun !== null ? "umr_list_{$tahun}" : 'umr_list';
+
+        return Cache::rememberForever(
+            $key,
+            fn () => $this->gql(
+                'query UMRList($tahun: Int) { umrList(tahun: $tahun) { provinsi kode upah tahun } }',
+                $tahun !== null ? ['tahun' => $tahun] : []
+            )['umrList'] ?? []
+        );
+    }
+
+    public function getHargaEmas(): array
+    {
+        return Cache::remember(
+            'harga_emas',
+            3600,
+            fn () => $this->gql('{ hargaEmas { gram hargaJual hargaBuyback } }')['hargaEmas'] ?? []
+        );
+    }
+
+    public function getBandaraList(): array
+    {
+        return Cache::rememberForever(
+            'bandara_list',
+            fn () => $this->gql('{ bandaraList { kodeIATA nama kota provinsi } }')['bandaraList'] ?? []
+        );
+    }
+
+    public function getBandaraDetail(string $kode): ?array
+    {
+        return Cache::rememberForever(
+            "bandara_{$kode}",
+            fn () => $this->gql(
+                'query BandaraDetail($kode: String!) { bandaraDetail(kode: $kode) { kodeIATA nama kota provinsi } }',
+                ['kode' => strtoupper(trim($kode))]
+            )['bandaraDetail'] ?? null
+        );
+    }
 }

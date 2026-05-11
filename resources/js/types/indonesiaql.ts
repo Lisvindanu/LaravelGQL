@@ -187,3 +187,23 @@ export interface InflasiItem {
     inflasiTahunan: number;
     ihk: number;
 }
+
+export interface UMRProvinsiItem {
+    provinsi: string;
+    kode: string;
+    upah: number;
+    tahun: number;
+}
+
+export interface HargaEmasItem {
+    gram: number;
+    hargaJual: number;
+    hargaBuyback: number;
+}
+
+export interface BandaraItem {
+    kodeIATA: string;
+    nama: string;
+    kota: string;
+    provinsi: string;
+}
