@@ -207,3 +207,15 @@ export interface BandaraItem {
     kota: string;
     provinsi: string;
 }
+
+export interface PenginapanItem {
+    id: string;
+    nama: string;
+    tipe: string;
+    alamat: string | null;
+    bintang: string | null;
+    telepon: string | null;
+    website: string | null;
+    lat: number;
+    lon: number;
+}

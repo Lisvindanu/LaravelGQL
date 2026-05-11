@@ -360,4 +360,18 @@ class IndonesiaQLService
             )['bandaraDetail'] ?? null
         );
     }
+
+    public function getPenginapan(string $kota): array
+    {
+        $cacheKey = 'penginapan_'.str_replace(' ', '_', strtolower($kota));
+
+        return Cache::remember(
+            $cacheKey,
+            3600,
+            fn () => $this->gql(
+                'query Penginapan($kota: String!) { penginapan(kota: $kota) { id nama tipe alamat bintang telepon website lat lon } }',
+                ['kota' => trim($kota)]
+            )['penginapan'] ?? []
+        );
+    }
 }

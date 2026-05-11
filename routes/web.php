@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BandaraController;
+use App\Http\Controllers\PenginapanController;
 use App\Http\Controllers\BpjsController;
 use App\Http\Controllers\CuacaController;
 use App\Http\Controllers\EmasController;
@@ -47,3 +48,4 @@ Route::get('/inflasi', [InflasiController::class, 'index'])->name('inflasi');
 Route::get('/umr', [UmrController::class, 'index'])->name('umr');
 Route::get('/emas', [EmasController::class, 'index'])->name('emas');
 Route::get('/bandara', [BandaraController::class, 'index'])->name('bandara');
+Route::get('/penginapan', [PenginapanController::class, 'index'])->name('penginapan');

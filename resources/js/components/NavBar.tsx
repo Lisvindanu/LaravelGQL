@@ -20,6 +20,7 @@ const navGroups = [
             { label: 'IHSG', href: '/saham' },
             { label: 'Inflasi', href: '/inflasi' },
             { label: 'UMR/UMP', href: '/umr' },
+            { label: 'Penginapan', href: '/penginapan' },
         ],
     },
     {
