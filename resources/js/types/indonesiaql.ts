@@ -207,3 +207,19 @@ export interface BandaraItem {
     kota: string;
     provinsi: string;
 }
+
+export interface GunungBerapiItem {
+    nama: string;
+    bentuk: string;
+    tinggiMeter: string;
+    estimasiLetusanTerakhir: string;
+    geolokasi: string;
+}
+
+export interface PahlawanNasionalItem {
+    nama: string;
+    tahunLahir: number;
+    tahunWafat: number;
+    deskripsi: string;
+    tahunDiangkat: number;
+}

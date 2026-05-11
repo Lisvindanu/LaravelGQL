@@ -41,6 +41,8 @@ const navGroups = [
             { label: 'Waktu Sholat', href: '/waktu-sholat' },
             { label: 'Kode Pos', href: '/kode-pos' },
             { label: 'Iuran BPJS', href: '/bpjs' },
+            { label: 'Gunung Berapi', href: '/gunung-berapi' },
+            { label: 'Pahlawan Nasional', href: '/pahlawan' },
         ],
     },
 ];

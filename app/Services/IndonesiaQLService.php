@@ -360,4 +360,20 @@ class IndonesiaQLService
             )['bandaraDetail'] ?? null
         );
     }
+
+    public function getGunungBerapiList(): array
+    {
+        return Cache::rememberForever(
+            'gunung_berapi_list',
+            fn () => $this->gql('{ gunungBerapiList { nama bentuk tinggiMeter estimasiLetusanTerakhir geolokasi } }')['gunungBerapiList'] ?? []
+        );
+    }
+
+    public function getPahlawanList(): array
+    {
+        return Cache::rememberForever(
+            'pahlawan_list',
+            fn () => $this->gql('{ pahlawanList { nama tahunLahir tahunWafat deskripsi tahunDiangkat } }')['pahlawanList'] ?? []
+        );
+    }
 }
