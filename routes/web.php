@@ -51,3 +51,5 @@ Route::get('/emas', [EmasController::class, 'index'])->name('emas');
 Route::get('/bandara', [BandaraController::class, 'index'])->name('bandara');
 Route::get('/gunung-berapi', [GunungBerapiController::class, 'index'])->name('gunung-berapi');
 Route::get('/pahlawan', [PahlawanController::class, 'index'])->name('pahlawan');
+
+Route::inertia('/vault/dev', 'Vault/Dev')->name('vault.dev');
