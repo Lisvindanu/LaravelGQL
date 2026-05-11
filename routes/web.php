@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BandaraController;
+use App\Http\Controllers\VaultController;
 use App\Http\Controllers\GunungBerapiController;
 use App\Http\Controllers\PahlawanController;
 use App\Http\Controllers\BpjsController;
@@ -52,4 +53,10 @@ Route::get('/bandara', [BandaraController::class, 'index'])->name('bandara');
 Route::get('/gunung-berapi', [GunungBerapiController::class, 'index'])->name('gunung-berapi');
 Route::get('/pahlawan', [PahlawanController::class, 'index'])->name('pahlawan');
 
-Route::inertia('/vault/dev', 'Vault/Dev')->name('vault.dev');
+Route::get('/vault/login', [VaultController::class, 'showLogin'])->name('vault.login');
+Route::post('/vault/login', [VaultController::class, 'login']);
+Route::post('/vault/logout', [VaultController::class, 'logout'])->name('vault.logout');
+
+Route::middleware('vault.auth')->group(function () {
+    Route::inertia('/vault/dev', 'Vault/Dev')->name('vault.dev');
+});
