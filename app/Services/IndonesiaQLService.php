@@ -376,4 +376,44 @@ class IndonesiaQLService
             fn () => $this->gql('{ pahlawanList { nama tahunLahir tahunWafat deskripsi tahunDiangkat foto } }')['pahlawanList'] ?? []
         );
     }
+
+    public function getNomorDaruratList(): array
+    {
+        return Cache::rememberForever(
+            'nomor_darurat_list',
+            fn () => $this->gql('{ nomorDaruratList { nomor layanan kategori } }')['nomorDaruratList'] ?? []
+        );
+    }
+
+    public function getPresidenList(): array
+    {
+        return Cache::rememberForever(
+            'presiden_list',
+            fn () => $this->gql('{ presidenList { urutan nama wakilPresiden mulaiJabatan akhirJabatan } }')['presidenList'] ?? []
+        );
+    }
+
+    public function getStasiunKeretaList(): array
+    {
+        return Cache::rememberForever(
+            'stasiun_kereta_list',
+            fn () => $this->gql('{ stasiunKeretaList { nama kode jalur tipe kota } }')['stasiunKeretaList'] ?? []
+        );
+    }
+
+    public function getPTNList(): array
+    {
+        return Cache::rememberForever(
+            'ptn_list',
+            fn () => $this->gql('{ ptnList { nama singkatan kota provinsi akreditasi jenis } }')['ptnList'] ?? []
+        );
+    }
+
+    public function getBudayaDaerahList(): array
+    {
+        return Cache::rememberForever(
+            'budaya_daerah_list',
+            fn () => $this->gql('{ budayaDaerahList { provinsi rumahAdat pakaianAdat tariDaerah } }')['budayaDaerahList'] ?? []
+        );
+    }
 }

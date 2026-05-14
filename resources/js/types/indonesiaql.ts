@@ -224,3 +224,41 @@ export interface PahlawanNasionalItem {
     tahunDiangkat: number;
     foto: string;
 }
+
+export interface NomorDaruratItem {
+    nomor: string;
+    layanan: string;
+    kategori: string;
+}
+
+export interface PresidenItem {
+    urutan: number;
+    nama: string;
+    wakilPresiden: string;
+    mulaiJabatan: number;
+    akhirJabatan: number;
+}
+
+export interface StasiunKeretaItem {
+    nama: string;
+    kode: string;
+    jalur: string;
+    tipe: string;
+    kota: string;
+}
+
+export interface PTNItem {
+    nama: string;
+    singkatan: string;
+    kota: string;
+    provinsi: string;
+    akreditasi: string;
+    jenis: string;
+}
+
+export interface BudayaDaerahItem {
+    provinsi: string;
+    rumahAdat: string;
+    pakaianAdat: string;
+    tariDaerah: string;
+}
