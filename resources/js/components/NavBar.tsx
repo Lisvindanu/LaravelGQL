@@ -43,6 +43,11 @@ const navGroups = [
             { label: 'Iuran BPJS', href: '/bpjs' },
             { label: 'Gunung Berapi', href: '/gunung-berapi' },
             { label: 'Pahlawan Nasional', href: '/pahlawan' },
+            { label: 'Nomor Darurat', href: '/nomor-darurat' },
+            { label: 'Presiden RI', href: '/presiden' },
+            { label: 'Stasiun Kereta', href: '/stasiun-kereta' },
+            { label: 'PTN Indonesia', href: '/ptn' },
+            { label: 'Budaya Daerah', href: '/budaya-daerah' },
         ],
     },
 ];
