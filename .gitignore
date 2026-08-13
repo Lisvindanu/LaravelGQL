@@ -26,3 +26,16 @@ yarn-error.log
 /.nova
 /.vscode
 /.zed
+
+# Konfigurasi asisten AI (lokal / auto-generated).
+# AGENTS.md dipertahankan sebagai satu-satunya panduan yang di-commit.
+/.claude
+/.agents
+/.ai
+/.gemini
+/.mcp.json
+/.codex
+/CLAUDE.md
+/GEMINI.md
+/opencode.json
+/boost.json
